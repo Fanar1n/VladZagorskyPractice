@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fanar\\Desktop\\VladZagorskyPractice\\Bank\\Bank\\Bank.csproj": {}
+    "C:\\Users\\fanar\\Desktop\\Новая папка\\Bank\\Bank\\Bank.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fanar\\Desktop\\VladZagorskyPractice\\Bank\\Bank\\Bank.csproj": {
+    "C:\\Users\\fanar\\Desktop\\Новая папка\\Bank\\Bank\\Bank.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fanar\\Desktop\\VladZagorskyPractice\\Bank\\Bank\\Bank.csproj",
+        "projectUniqueName": "C:\\Users\\fanar\\Desktop\\Новая папка\\Bank\\Bank\\Bank.csproj",
         "projectName": "Bank",
-        "projectPath": "C:\\Users\\fanar\\Desktop\\VladZagorskyPractice\\Bank\\Bank\\Bank.csproj",
+        "projectPath": "C:\\Users\\fanar\\Desktop\\Новая папка\\Bank\\Bank\\Bank.csproj",
         "packagesPath": "C:\\Users\\fanar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fanar\\Desktop\\VladZagorskyPractice\\Bank\\Bank\\obj\\",
+        "outputPath": "C:\\Users\\fanar\\Desktop\\Новая папка\\Bank\\Bank\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
