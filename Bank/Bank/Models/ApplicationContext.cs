@@ -9,7 +9,7 @@ namespace Bank.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=Bank.db");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DankDB;Trusted_Connection=True;");
         }
     }
 }
