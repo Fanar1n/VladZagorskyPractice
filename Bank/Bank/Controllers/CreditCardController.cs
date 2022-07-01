@@ -22,6 +22,11 @@ namespace Bank.Controllers
         {
             var creditCards = _db.CreditCards.ToList();
 
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                creditCards = db.CreditCards.ToList();
+            }
+
             return creditCards;
         }
 
