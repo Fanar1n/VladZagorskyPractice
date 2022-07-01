@@ -27,12 +27,12 @@ namespace Bank.Controllers
             return creditCards;
         }
 
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                CreditCard GoldCard = db.CreditCards.FirstOrDefault();
+                CreditCard GoldCard = db.CreditCards.FirstOrDefault(x=> x.Id==id);
 
                 db.Remove(GoldCard);
 
@@ -43,44 +43,37 @@ namespace Bank.Controllers
         }
 
         [HttpPut]
-        public CreditCard Update()
+        public CreditCard Update(CreditCard creditCard)
         {
-            CreditCard updateCard = null;
+            CreditCard updateCard;
 
             using (ApplicationContext db = new ApplicationContext())
             {
-                CreditCard GoldCard = db.CreditCards.FirstOrDefault();
-
-                GoldCard.CardNumber = 5678;
-
-                db.Update(GoldCard);
+                db.Update(creditCard);
 
                 db.SaveChanges();
 
-                updateCard = db.CreditCards.FirstOrDefault(x => x.CardNumber == GoldCard.CardNumber);
+                updateCard = db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
             }
 
             return updateCard;
         }
 
         [HttpPost]
-        public CreditCard Create()
+        public CreditCard Create(CreditCard creditCard)
         {
-            CreditCard createCard = null;
+            CreditCard createCard;
             using (ApplicationContext db = new ApplicationContext())
             {
-                CreditCard GoldCard = new CreditCard { CardNumber = 3455 };
-
-                db.CreditCards.Add(GoldCard);
+                db.CreditCards.Add(creditCard);
 
                 db.SaveChanges();
 
-                createCard = db.CreditCards.FirstOrDefault(x => x.CardNumber == GoldCard.CardNumber);
+                createCard = db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);              
             }
 
-            return createCard;
+            return creditCard;
         }
-
     }
 }
 
