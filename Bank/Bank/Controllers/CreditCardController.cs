@@ -1,6 +1,7 @@
 using Bank.Models;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Bank.Controllers
 {
     [ApiController]
@@ -8,21 +9,18 @@ namespace Bank.Controllers
     public class CreditCardController : ControllerBase
     {
         private readonly ILogger<CreditCardController> _logger;
+        private readonly ApplicationContext _db;
 
-        public CreditCardController(ILogger<CreditCardController> logger)
+        public CreditCardController(ILogger<CreditCardController> logger, ApplicationContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         [HttpGet]
         public IEnumerable<CreditCard> Get()
         {
-            IEnumerable<CreditCard> creditCards = new List<CreditCard>();
-
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                creditCards = db.CreditCards.ToList();
-            }
+            var creditCards = _db.CreditCards.ToList();
 
             return creditCards;
         }
@@ -30,14 +28,11 @@ namespace Bank.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                CreditCard GoldCard = db.CreditCards.FirstOrDefault(x=> x.Id==id);
+            CreditCard GoldCard = _db.CreditCards.FirstOrDefault(x => x.Id == id);
 
-                db.Remove(GoldCard);
+            _db.Remove(GoldCard);
 
-                db.SaveChanges();              
-            }
+            _db.SaveChanges();
 
             return Ok();
         }
@@ -45,16 +40,11 @@ namespace Bank.Controllers
         [HttpPut]
         public CreditCard Update(CreditCard creditCard)
         {
-            CreditCard updateCard;
+            _db.Update(creditCard);
 
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.Update(creditCard);
+            _db.SaveChanges();
 
-                db.SaveChanges();
-
-                updateCard = db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
-            }
+            var updateCard = _db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
 
             return updateCard;
         }
@@ -62,15 +52,11 @@ namespace Bank.Controllers
         [HttpPost]
         public CreditCard Create(CreditCard creditCard)
         {
-            CreditCard createCard;
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.CreditCards.Add(creditCard);
+            _db.CreditCards.Add(creditCard);
 
-                db.SaveChanges();
+            _db.SaveChanges();
 
-                createCard = db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);              
-            }
+            var createCard = _db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
 
             return creditCard;
         }
