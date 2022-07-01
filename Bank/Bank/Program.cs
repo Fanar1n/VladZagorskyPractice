@@ -1,8 +1,12 @@
 using Bank.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationContext>();
+var configuration = builder.Configuration;
+
+builder.Services.AddDbContext<ApplicationContext>(c => c.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
 // Add services to the container.
 
 builder.Services.AddControllers();

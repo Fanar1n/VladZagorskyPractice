@@ -20,12 +20,7 @@ namespace Bank.Controllers
         [HttpGet]
         public IEnumerable<CreditCard> Get()
         {
-            var creditCards = _db.CreditCards.ToList();
-
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                creditCards = db.CreditCards.ToList();
-            }
+            var creditCards = _db.CreditCard.ToList();
 
             return creditCards;
         }
@@ -33,7 +28,7 @@ namespace Bank.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            CreditCard GoldCard = _db.CreditCards.FirstOrDefault(x => x.Id == id);
+            CreditCard GoldCard = _db.CreditCard.FirstOrDefault(x => x.Id == id);
 
             _db.Remove(GoldCard);
 
@@ -49,7 +44,7 @@ namespace Bank.Controllers
 
             _db.SaveChanges();
 
-            var updateCard = _db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
+            var updateCard = _db.CreditCard.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
 
             return updateCard;
         }
@@ -57,15 +52,13 @@ namespace Bank.Controllers
         [HttpPost]
         public CreditCard Create(CreditCard creditCard)
         {
-            _db.CreditCards.Add(creditCard);
+            _db.CreditCard.Add(creditCard);
 
             _db.SaveChanges();
 
-            var createCard = _db.CreditCards.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
+            var createCard = _db.CreditCard.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
 
-            return creditCard;
+            return createCard;
         }
     }
 }
-
-

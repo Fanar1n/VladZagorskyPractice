@@ -4,12 +4,8 @@ namespace Bank.Models
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<CreditCard> CreditCards => Set<CreditCard>();
-        public ApplicationContext() => Database.EnsureCreated();    
+        public DbSet<CreditCard> CreditCard => Set<CreditCard>();
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DankDB;Trusted_Connection=True;");
-        }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { Database.EnsureCreated(); }
     }
 }
