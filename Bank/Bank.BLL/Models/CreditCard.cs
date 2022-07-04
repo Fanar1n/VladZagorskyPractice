@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank.BLL.Models
 {
-    internal class CreditCard
+    public class CreditCard
     {
         public int Id { get; set; }
         public int CardNumber { get; set; }
