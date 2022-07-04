@@ -52,10 +52,10 @@ namespace Bank.Controllers
             var checkCreditCard = _db.CreditCard.AsNoTracking().FirstOrDefault(p => p.Id == creditCard.Id);
 
             if (checkCreditCard == null
-                && !_validation.DataValidationCardNumber(creditCard)
-                && !_validation.DataValidationCVV(creditCard)
-                && !_validation.DataValidationOwnerFirstName(creditCard)
-                && !_validation.DataValidationOwnerSecondName(creditCard))
+                || !_validation.DataValidationCardNumber(creditCard)
+                || !_validation.DataValidationCVV(creditCard)
+                || !_validation.DataValidationOwnerFirstName(creditCard)
+                || !_validation.DataValidationOwnerSecondName(creditCard))
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
@@ -73,9 +73,9 @@ namespace Bank.Controllers
         public CreditCard Create(CreditCard creditCard)
         {
             if (!_validation.DataValidationCardNumber(creditCard)
-                && !_validation.DataValidationCVV(creditCard)
-                && !_validation.DataValidationOwnerFirstName(creditCard)
-                && !_validation.DataValidationOwnerSecondName(creditCard))
+                || !_validation.DataValidationCVV(creditCard)
+                || !_validation.DataValidationOwnerFirstName(creditCard)
+                || !_validation.DataValidationOwnerSecondName(creditCard))
             {
                 throw new ArgumentException("Data is not correct");
             }
