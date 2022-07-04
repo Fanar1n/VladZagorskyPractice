@@ -1,6 +1,7 @@
 using System.Data;
 using System.Linq;
 using Bank.Models;
+using Bank.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +14,13 @@ namespace Bank.Controllers
     {
         private readonly ILogger<CreditCardController> _logger;
         private readonly ApplicationContext _db;
+        private readonly Validation _validation;
 
         public CreditCardController(ILogger<CreditCardController> logger, ApplicationContext db)
         {
             _logger = logger;
             _db = db;
+            _validation = new Validation(db);
         }
 
         [HttpGet]
@@ -29,24 +32,18 @@ namespace Bank.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public void Delete(int id)
         {
-            var checkCreditCard = _db.CreditCard.AsNoTracking().FirstOrDefault(p => p.Id == id);
-
-            if (checkCreditCard != null)
-            {
-                CreditCard creditCard = _db.CreditCard.FirstOrDefault(x => x.Id == id);
-
-                _db.Remove(creditCard);
-
-                _db.SaveChanges();
-            }
-            else
+            if (_validation.DataValidationId(id))
             {
                 throw new Exception("Not correct id to delete");
             }
 
-            return Ok();
+            CreditCard creditCard = _db.CreditCard.FirstOrDefault(x => x.Id == id);
+
+            _db.Remove(creditCard);
+
+            _db.SaveChanges();
         }
 
         [HttpPut]
@@ -54,7 +51,11 @@ namespace Bank.Controllers
         {
             var checkCreditCard = _db.CreditCard.AsNoTracking().FirstOrDefault(p => p.Id == creditCard.Id);
 
-            if (checkCreditCard != null && DataValidation(creditCard))
+            if (checkCreditCard != null
+                && _validation.DataValidationCardNumber(creditCard)
+                && _validation.DataValidationCVV(creditCard)
+                && _validation.DataValidationOwnerFirstName(creditCard)
+                && _validation.DataValidationOwnerSecondName(creditCard))
             {
                 _db.Update(creditCard);
 
@@ -73,7 +74,10 @@ namespace Bank.Controllers
         [HttpPost]
         public CreditCard Create(CreditCard creditCard)
         {
-            if (DataValidation(creditCard))
+            if (_validation.DataValidationCardNumber(creditCard)
+                && _validation.DataValidationCVV(creditCard)
+                && _validation.DataValidationOwnerFirstName(creditCard)
+                && _validation.DataValidationOwnerSecondName(creditCard))
             {
                 _db.CreditCard.Add(creditCard);
 
@@ -87,17 +91,6 @@ namespace Bank.Controllers
             var createCard = _db.CreditCard.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
 
             return createCard;
-        }
-
-        private bool DataValidation(CreditCard creditCard)
-        {
-            return creditCard.CardNumber.ToString().Length >= 4
-                   && creditCard.CardNumber.ToString().Length <= 6
-                   && creditCard.CVV.ToString().Length == 3
-                   && creditCard.OwnerFirstName.Length > 0
-                   && creditCard.OwnerFirstName.Length <= 30
-                   && creditCard.OwnerSecondName.Length > 0
-                   && creditCard.OwnerSecondName.Length <= 30;
         }
     }
 }
