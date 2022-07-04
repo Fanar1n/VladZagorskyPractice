@@ -39,7 +39,7 @@ namespace Bank.Controllers
                 throw new Exception("Not correct id to delete");
             }
 
-            CreditCard creditCard = _db.CreditCard.FirstOrDefault(x => x.Id == id);
+            var creditCard = _db.CreditCard.FirstOrDefault(x => x.Id == id);
 
             _db.Remove(creditCard);
 
@@ -51,20 +51,18 @@ namespace Bank.Controllers
         {
             var checkCreditCard = _db.CreditCard.AsNoTracking().FirstOrDefault(p => p.Id == creditCard.Id);
 
-            if (checkCreditCard != null
-                && _validation.DataValidationCardNumber(creditCard)
-                && _validation.DataValidationCVV(creditCard)
-                && _validation.DataValidationOwnerFirstName(creditCard)
-                && _validation.DataValidationOwnerSecondName(creditCard))
-            {
-                _db.Update(creditCard);
-
-                _db.SaveChanges();
-            }
-            else
+            if (checkCreditCard == null
+                && !_validation.DataValidationCardNumber(creditCard)
+                && !_validation.DataValidationCVV(creditCard)
+                && !_validation.DataValidationOwnerFirstName(creditCard)
+                && !_validation.DataValidationOwnerSecondName(creditCard))
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
+
+            _db.Update(creditCard);
+
+            _db.SaveChanges();
 
             var updateCard = _db.CreditCard.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
 
@@ -74,19 +72,17 @@ namespace Bank.Controllers
         [HttpPost]
         public CreditCard Create(CreditCard creditCard)
         {
-            if (_validation.DataValidationCardNumber(creditCard)
-                && _validation.DataValidationCVV(creditCard)
-                && _validation.DataValidationOwnerFirstName(creditCard)
-                && _validation.DataValidationOwnerSecondName(creditCard))
-            {
-                _db.CreditCard.Add(creditCard);
-
-                _db.SaveChanges();
-            }
-            else
+            if (!_validation.DataValidationCardNumber(creditCard)
+                && !_validation.DataValidationCVV(creditCard)
+                && !_validation.DataValidationOwnerFirstName(creditCard)
+                && !_validation.DataValidationOwnerSecondName(creditCard))
             {
                 throw new ArgumentException("Data is not correct");
             }
+
+            _db.CreditCard.Add(creditCard);
+
+            _db.SaveChanges();
 
             var createCard = _db.CreditCard.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
 
