@@ -99,24 +99,5 @@ namespace Bank.Controllers
                    && creditCard.OwnerSecondName.Length > 0
                    && creditCard.OwnerSecondName.Length <= 30;
         }
-
-        private bool IsCorrectId(int id)
-        {
-            bool correctId = false;
-
-            foreach (var creditCard in _db.CreditCard)
-            {
-                if (creditCard.Id == id)
-                {
-                    correctId = true;
-                }
-                else
-                {
-                    throw new Exception("Not correct id to update");
-                }
-            }
-
-            return correctId;
-        }
     }
 }
