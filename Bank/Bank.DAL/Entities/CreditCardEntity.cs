@@ -1,6 +1,6 @@
 ﻿namespace Bank.DAL.Entities
 {
-    public class CreditCard
+    public class CreditCardEntity
     {
         public int Id { get; set; }
         public int CardNumber { get; set; }
