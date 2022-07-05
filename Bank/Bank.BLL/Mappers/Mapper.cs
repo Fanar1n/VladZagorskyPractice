@@ -3,9 +3,9 @@ using Bank.DAL.Entities;
 
 namespace Bank.BLL.AMapper
 {
-    public class Mapper
+    public static class Mapper
     {
-        public CreditCardEntity ConvertCreditCardToCreditCardEntity(CreditCard item)
+        public static CreditCardEntity ConvertCreditCardToCreditCardEntity(CreditCard item)
         {
             var result = new CreditCardEntity
             {
@@ -18,7 +18,7 @@ namespace Bank.BLL.AMapper
             return result;
         }
 
-        public CreditCard ConvertCreditCardEntityToCreditCard(CreditCardEntity item)
+        public static CreditCard ConvertCreditCardEntityToCreditCard(CreditCardEntity item)
         {
             var result = new CreditCard
             {

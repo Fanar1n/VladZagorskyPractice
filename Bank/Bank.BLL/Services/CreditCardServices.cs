@@ -10,7 +10,7 @@ namespace Bank.BLL.Services
     {
         private readonly ICreditCardRepository _creditCardRepository;
         private readonly Validation _validation;
-        private readonly Mapper _mapper;
+
         public CreditCardServices(ICreditCardRepository creditCardRepository)
         {
             _creditCardRepository = creditCardRepository;
@@ -23,7 +23,7 @@ namespace Bank.BLL.Services
 
             foreach (var item in result)
             {
-                resultToList.Add(_mapper.ConvertCreditCardEntityToCreditCard(item));
+                resultToList.Add(Mapper.ConvertCreditCardEntityToCreditCard(item));
             }
 
             return resultToList;
@@ -33,42 +33,42 @@ namespace Bank.BLL.Services
         {
             var result = _creditCardRepository.Get(id);
 
-            return _mapper.ConvertCreditCardEntityToCreditCard(result);
+            return Mapper.ConvertCreditCardEntityToCreditCard(result);
         }
 
         public CreditCard Create(CreditCard item)
         {
-            if (!_validation.DataValidationCardNumber(item)
-                || !_validation.DataValidationCVV(item)
-                || !_validation.DataValidationOwnerFirstName(item)
-                || !_validation.DataValidationOwnerSecondName(item))
+            if (!_validation.IsCardNumberValid(item)
+                || !_validation.IsCvvValid(item)
+                || !_validation.IsOwnerFirstNameValid(item)
+                || !_validation.IsOwnerSecondNameValid(item))
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
 
-            var creditCardEntity = _mapper.ConvertCreditCardToCreditCardEntity(item);
+            var creditCardEntity = Mapper.ConvertCreditCardToCreditCardEntity(item);
 
             var result = _creditCardRepository.Create(creditCardEntity);
 
-            return _mapper.ConvertCreditCardEntityToCreditCard(result);
+            return Mapper.ConvertCreditCardEntityToCreditCard(result);
         }
 
         public CreditCard Update(CreditCard item)
         {
             if (!_validation.DataValidationId(item.Id)
-                 || !_validation.DataValidationCardNumber(item)
-                 || !_validation.DataValidationCVV(item)
-                 || !_validation.DataValidationOwnerFirstName(item)
-                 || !_validation.DataValidationOwnerSecondName(item))
+                 || !_validation.IsCardNumberValid(item)
+                 || !_validation.IsCvvValid(item)
+                 || !_validation.IsOwnerFirstNameValid(item)
+                 || !_validation.IsOwnerSecondNameValid(item))
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
 
-            var creditCardEntity =_mapper.ConvertCreditCardToCreditCardEntity(item);
+            var creditCardEntity = Mapper.ConvertCreditCardToCreditCardEntity(item);
 
             var result = _creditCardRepository.Update(creditCardEntity);
 
-            return _mapper.ConvertCreditCardEntityToCreditCard(result);
+            return Mapper.ConvertCreditCardEntityToCreditCard(result);
         }
 
         public void Delete(int id)

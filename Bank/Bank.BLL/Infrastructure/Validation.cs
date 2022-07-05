@@ -14,24 +14,24 @@ namespace Bank.BLL.Infrastructure
             _creditCardRepository = creditCardRepository;
         }
 
-        public bool DataValidationCardNumber(CreditCard creditCard)
+        public bool IsCardNumberValid(CreditCard creditCard)
         {
             return creditCard.CardNumber.ToString().Length >= 4
                    && creditCard.CardNumber.ToString().Length <= 6;
         }
 
-        public bool DataValidationCVV(CreditCard creditCard)
+        public bool IsCvvValid(CreditCard creditCard)
         {
             return creditCard.CVV.ToString().Length == 3;
         }
 
-        public bool DataValidationOwnerFirstName(CreditCard creditCard)
+        public bool IsOwnerFirstNameValid(CreditCard creditCard)
         {
             return creditCard.OwnerFirstName.Length > 0
                    && creditCard.OwnerFirstName.Length <= 30;
         }
 
-        public bool DataValidationOwnerSecondName(CreditCard creditCard)
+        public bool IsOwnerSecondNameValid(CreditCard creditCard)
         {
             return creditCard.OwnerSecondName.Length > 0
                    && creditCard.OwnerSecondName.Length <= 30;
