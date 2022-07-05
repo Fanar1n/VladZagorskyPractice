@@ -1,13 +1,13 @@
 ﻿using Bank.BLL.Models;
-using Bank.DAL.Entities;
+using Bank.Models;
 
-namespace Bank.BLL.AMapper
+namespace Bank.Mappers
 {
     public static class Mapper
     {
-        public static CreditCardEntity ConvertCreditCardToCreditCardEntity(CreditCard item)
+        public static CreditCardViewModel ConvertCreditCardToCreditCardViewModel(CreditCard item)
         {
-            var result = new CreditCardEntity
+            var result = new CreditCardViewModel
             {
                 Id = item.Id,
                 CardNumber = item.CardNumber,
@@ -19,7 +19,7 @@ namespace Bank.BLL.AMapper
             return result;
         }
 
-        public static CreditCard ConvertCreditCardEntityToCreditCard(CreditCardEntity item)
+        public static CreditCard ConvertCreditCardViewModelToCreditCard(CreditCardViewModel item)
         {
             var result = new CreditCard
             {

@@ -1,6 +1,7 @@
+using Bank.BLL.Interfaces;
+using Bank.Mappers;
 using Bank.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace Bank.Controllers
@@ -10,55 +11,54 @@ namespace Bank.Controllers
     public class CreditCardController : ControllerBase
     {
         private readonly ILogger<CreditCardController> _logger;
-        private readonly ApplicationContext _db;
+        private readonly ICreditCardServices _creditCardServices;
 
-        public CreditCardController(ILogger<CreditCardController> logger, ApplicationContext db)
+        public CreditCardController(ILogger<CreditCardController> logger, ICreditCardServices creditCardServices)
         {
             _logger = logger;
-            _db = db;
+            _creditCardServices = creditCardServices;
         }
 
         [HttpGet]
-        public IEnumerable<CreditCard> Get()
+        public IEnumerable<CreditCardViewModel> GetAll()
         {
-            var creditCards = _db.CreditCard.ToList();
+            var result = _creditCardServices.GetAll();
 
-            return creditCards;
+            var resultToList = new List<CreditCardViewModel>();
+
+            foreach (var item in result)
+            {
+                resultToList.Add(Mapper.ConvertCreditCardToCreditCardViewModel(item));
+            }
+
+            return resultToList;
         }
+
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var creditCard = _db.CreditCard.FirstOrDefault(x => x.Id == id);
-
-            _db.Remove(creditCard);
-
-            _db.SaveChanges();
+            _creditCardServices.Delete(id);
         }
 
         [HttpPut]
-        public CreditCard Update(CreditCard creditCard)
+        public CreditCardViewModel Update(CreditCardViewModel creditCardViewModel)
         {
+            var creditCard = Mapper.ConvertCreditCardViewModelToCreditCard(creditCardViewModel);
 
-            _db.Update(creditCard);
+            var result = _creditCardServices.Update(creditCard);
 
-            _db.SaveChanges();
-
-            var updateCard = _db.CreditCard.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
-
-            return updateCard;
+            return Mapper.ConvertCreditCardToCreditCardViewModel(result);
         }
 
         [HttpPost]
-        public CreditCard Create(CreditCard creditCard)
+        public CreditCardViewModel Create(CreditCardViewModel creditCardViewModel)
         {
-            _db.CreditCard.Add(creditCard);
+            var creditCard = Mapper.ConvertCreditCardViewModelToCreditCard(creditCardViewModel);
 
-            _db.SaveChanges();
+            var result = _creditCardServices.Create(creditCard);
 
-            var createCard = _db.CreditCard.FirstOrDefault(x => x.CardNumber == creditCard.CardNumber);
-
-            return createCard;
+            return Mapper.ConvertCreditCardToCreditCardViewModel(result);
         }
     }
 }
