@@ -2,7 +2,6 @@ using Bank.BLL.Interfaces;
 using Bank.Mappers;
 using Bank.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace Bank.Controllers
