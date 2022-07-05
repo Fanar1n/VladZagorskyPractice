@@ -1,15 +1,17 @@
-﻿using Bank.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Bank.BLL.Models;
+using Bank.DAL.Entities;
+using Bank.DAL.Interfaces;
 
-namespace Bank.Services
+namespace Bank.BLL.Infrastructure
 {
     public class Validation
     {
-        private readonly ApplicationContext _db;
+        private readonly ICreditCardRepository<CreditCardEntity> _creditCardRepository;
 
-        public Validation (ApplicationContext db)
+        public Validation(ICreditCardRepository<CreditCardEntity> creditCardRepository)
         {
-            _db = db;
+            _creditCardRepository = creditCardRepository;
         }
 
         public bool DataValidationCardNumber(CreditCard creditCard)
@@ -37,14 +39,7 @@ namespace Bank.Services
 
         public bool DataValidationId(int id)
         {
-            var creditCard = _db.CreditCard.AsNoTracking().FirstOrDefault(p => p.Id == id);
-
-            if (creditCard == null)
-            {
-                return true;
-            }
-
-            return false;
+            return _creditCardRepository.GetAll().FirstOrDefault(p => p.Id == id) is not null;
         }
     }
 }
