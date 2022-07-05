@@ -1,15 +1,10 @@
 ﻿using Bank.DAL.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Bank.DAL.Entities;
 using Bank.DAL.Interfaces;
 
 namespace Bank.DAL.Repositories
 {
-    public class CreditCardRepository : ICreditCardRepository<CreditCardEntity>
+    public class CreditCardRepository : ICreditCardRepository
     {
         private readonly ApplicationContext _db;
 
@@ -38,15 +33,15 @@ namespace Bank.DAL.Repositories
         public CreditCardEntity Update(CreditCardEntity creditCard)
         {
             _db.CreditCard.Update(creditCard);
-            
+
             return creditCard;
         }
 
         public void Delete(int id)
         {
-           var creditCard = _db.CreditCard.Find(id);
+            var creditCard = _db.CreditCard.Find(id);
 
-           _db.CreditCard.Remove(creditCard);
+            _db.CreditCard.Remove(creditCard);
         }
     }
 }

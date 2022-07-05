@@ -1,6 +1,8 @@
-﻿namespace Bank.DAL.Interfaces
+﻿using Bank.DAL.Entities;
+
+namespace Bank.DAL.Interfaces
 {
-    public interface ICreditCardRepository<CreditCardEntity> 
+    public interface ICreditCardRepository
     {
         IEnumerable<CreditCardEntity> GetAll();
         CreditCardEntity Get(int id);

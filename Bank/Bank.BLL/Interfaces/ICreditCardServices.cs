@@ -1,6 +1,8 @@
-﻿namespace Bank.BLL.Interfaces
+﻿using Bank.BLL.Models;
+
+namespace Bank.BLL.Interfaces
 {
-    public interface ICreditCardServices<CreditCard>
+    public interface ICreditCardServices
     {
         IEnumerable<CreditCard> GetAll();
         CreditCard Get(int id);

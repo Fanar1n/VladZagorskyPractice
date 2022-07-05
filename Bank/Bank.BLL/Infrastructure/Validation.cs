@@ -7,9 +7,9 @@ namespace Bank.BLL.Infrastructure
 {
     public class Validation
     {
-        private readonly ICreditCardRepository<CreditCardEntity> _creditCardRepository;
+        private readonly ICreditCardRepository _creditCardRepository;
 
-        public Validation(ICreditCardRepository<CreditCardEntity> creditCardRepository)
+        public Validation(ICreditCardRepository creditCardRepository)
         {
             _creditCardRepository = creditCardRepository;
         }
@@ -39,7 +39,14 @@ namespace Bank.BLL.Infrastructure
 
         public bool DataValidationId(int id)
         {
-            return _creditCardRepository.GetAll().FirstOrDefault(p => p.Id == id) is not null;
+            var creditCard = _creditCardRepository.Get(id);
+
+            if (creditCard == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
