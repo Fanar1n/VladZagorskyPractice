@@ -14,6 +14,8 @@ namespace Bank.BLL.Services
         public CreditCardServices(ICreditCardRepository creditCardRepository)
         {
             _creditCardRepository = creditCardRepository;
+
+            _validation = new Validation(creditCardRepository);
         }
         public IEnumerable<CreditCard> GetAll()
         {

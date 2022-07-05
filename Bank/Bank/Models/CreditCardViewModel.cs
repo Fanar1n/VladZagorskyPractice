@@ -1,6 +1,6 @@
-﻿namespace Bank
+﻿namespace Bank.Models
 {
-    public class CreditCard
+    public class CreditCardViewModel
     {
         public int Id { get; set; }
         public int CardNumber { get; set; }
