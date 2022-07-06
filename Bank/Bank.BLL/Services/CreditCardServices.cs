@@ -4,7 +4,6 @@ using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
 using Bank.DAL.Entities;
 using Bank.DAL.Interfaces;
-using Mapper = Bank.BLL.AMapper.Mapper;
 
 namespace Bank.BLL.Services
 {
@@ -14,7 +13,7 @@ namespace Bank.BLL.Services
         private readonly Validation _validation;
         private readonly IMapper _mapper;
 
-        public CreditCardServices(ICreditCardRepository creditCardRepository,IMapper mapper)
+        public CreditCardServices(ICreditCardRepository creditCardRepository, IMapper mapper)
         {
             _mapper = mapper;
 

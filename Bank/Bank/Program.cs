@@ -1,4 +1,3 @@
-using AutoMapper;
 using Bank.BLL.DI;
 
 var builder = WebApplication.CreateBuilder(args);

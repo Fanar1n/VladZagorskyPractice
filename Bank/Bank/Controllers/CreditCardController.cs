@@ -3,7 +3,6 @@ using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
 using Bank.Models;
 using Microsoft.AspNetCore.Mvc;
-using Mapper = Bank.Mappers.Mapper;
 
 
 namespace Bank.Controllers
@@ -16,7 +15,7 @@ namespace Bank.Controllers
         private readonly ICreditCardServices _creditCardServices;
         private readonly IMapper _mapper;
 
-        public CreditCardController(ILogger<CreditCardController> logger, ICreditCardServices creditCardServices,IMapper mapper)
+        public CreditCardController(ILogger<CreditCardController> logger, ICreditCardServices creditCardServices, IMapper mapper)
         {
             _mapper = mapper;
             _logger = logger;
