@@ -1,3 +1,4 @@
+using AutoMapper;
 using Bank.BLL.DI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddBusinessLogic(configuration);
+builder.Services.AddAutoMapper(typeof(Bank.BLL.AMapper.Mapper), typeof(Bank.Mappers.Mapper));
 
 builder.Services.AddControllers();
 

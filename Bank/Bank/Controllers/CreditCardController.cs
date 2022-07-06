@@ -1,7 +1,9 @@
+using AutoMapper;
 using Bank.BLL.Interfaces;
-using Bank.Mappers;
+using Bank.BLL.Models;
 using Bank.Models;
 using Microsoft.AspNetCore.Mvc;
+using Mapper = Bank.Mappers.Mapper;
 
 
 namespace Bank.Controllers
@@ -12,9 +14,11 @@ namespace Bank.Controllers
     {
         private readonly ILogger<CreditCardController> _logger;
         private readonly ICreditCardServices _creditCardServices;
+        private readonly IMapper _mapper;
 
-        public CreditCardController(ILogger<CreditCardController> logger, ICreditCardServices creditCardServices)
+        public CreditCardController(ILogger<CreditCardController> logger, ICreditCardServices creditCardServices,IMapper mapper)
         {
+            _mapper = mapper;
             _logger = logger;
             _creditCardServices = creditCardServices;
         }
@@ -28,7 +32,7 @@ namespace Bank.Controllers
 
             foreach (var item in result)
             {
-                resultToList.Add(Mapper.ConvertCreditCardToCreditCardViewModel(item));
+                resultToList.Add(_mapper.Map<CreditCardViewModel>(item));
             }
 
             return resultToList;
@@ -44,21 +48,21 @@ namespace Bank.Controllers
         [HttpPut]
         public CreditCardViewModel Update(CreditCardViewModel creditCardViewModel)
         {
-            var creditCard = Mapper.ConvertCreditCardViewModelToCreditCard(creditCardViewModel);
+            var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
             var result = _creditCardServices.Update(creditCard);
 
-            return Mapper.ConvertCreditCardToCreditCardViewModel(result);
+            return _mapper.Map<CreditCardViewModel>(result);
         }
 
         [HttpPost]
         public CreditCardViewModel Create(CreditCardViewModel creditCardViewModel)
         {
-            var creditCard = Mapper.ConvertCreditCardViewModelToCreditCard(creditCardViewModel);
+            var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
             var result = _creditCardServices.Create(creditCard);
 
-            return Mapper.ConvertCreditCardToCreditCardViewModel(result);
+            return _mapper.Map<CreditCardViewModel>(result);
         }
     }
 }

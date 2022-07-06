@@ -1,8 +1,10 @@
-﻿using Bank.BLL.Infrastructure;
+﻿using AutoMapper;
+using Bank.BLL.Infrastructure;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
+using Bank.DAL.Entities;
 using Bank.DAL.Interfaces;
-using Bank.BLL.AMapper;
+using Mapper = Bank.BLL.AMapper.Mapper;
 
 namespace Bank.BLL.Services
 {
@@ -10,9 +12,12 @@ namespace Bank.BLL.Services
     {
         private readonly ICreditCardRepository _creditCardRepository;
         private readonly Validation _validation;
+        private readonly IMapper _mapper;
 
-        public CreditCardServices(ICreditCardRepository creditCardRepository)
+        public CreditCardServices(ICreditCardRepository creditCardRepository,IMapper mapper)
         {
+            _mapper = mapper;
+
             _creditCardRepository = creditCardRepository;
 
             _validation = new Validation(creditCardRepository);
@@ -25,7 +30,7 @@ namespace Bank.BLL.Services
 
             foreach (var item in result)
             {
-                resultToList.Add(Mapper.ConvertCreditCardEntityToCreditCard(item));
+                resultToList.Add(_mapper.Map<CreditCard>(item));
             }
 
             return resultToList;
@@ -35,7 +40,7 @@ namespace Bank.BLL.Services
         {
             var result = _creditCardRepository.Get(id);
 
-            return Mapper.ConvertCreditCardEntityToCreditCard(result);
+            return _mapper.Map<CreditCard>(result);
         }
 
         public CreditCard Create(CreditCard item)
@@ -48,11 +53,11 @@ namespace Bank.BLL.Services
                 throw new ArgumentException("Data or Id is not correct");
             }
 
-            var creditCardEntity = Mapper.ConvertCreditCardToCreditCardEntity(item);
+            var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
 
             var result = _creditCardRepository.Create(creditCardEntity);
 
-            return Mapper.ConvertCreditCardEntityToCreditCard(result);
+            return _mapper.Map<CreditCard>(result);
         }
 
         public CreditCard Update(CreditCard item)
@@ -66,11 +71,11 @@ namespace Bank.BLL.Services
                 throw new ArgumentException("Data or Id is not correct");
             }
 
-            var creditCardEntity = Mapper.ConvertCreditCardToCreditCardEntity(item);
+            var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
 
             var result = _creditCardRepository.Update(creditCardEntity);
 
-            return Mapper.ConvertCreditCardEntityToCreditCard(result);
+            return _mapper.Map<CreditCard>(result);
         }
 
         public void Delete(int id)
