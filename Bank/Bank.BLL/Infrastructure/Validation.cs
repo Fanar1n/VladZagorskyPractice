@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Bank.BLL.Models;
-using Bank.DAL.Entities;
+﻿using Bank.BLL.Models;
 using Bank.DAL.Interfaces;
 
 namespace Bank.BLL.Infrastructure
