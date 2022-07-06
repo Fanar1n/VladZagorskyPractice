@@ -13,12 +13,12 @@ namespace Bank.BLL.Services
         private readonly Validation _validation;
         private readonly IMapper _mapper;
 
-        public CreditCardServices(ICreditCardRepository creditCardRepository, IMapper mapper)
+        public CreditCardServices(
+            ICreditCardRepository creditCardRepository,
+            IMapper mapper)
         {
             _mapper = mapper;
-
             _creditCardRepository = creditCardRepository;
-
             _validation = new Validation(creditCardRepository);
         }
         public IEnumerable<CreditCard> GetAll()
