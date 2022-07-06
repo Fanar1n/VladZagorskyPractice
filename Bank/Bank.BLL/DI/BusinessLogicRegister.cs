@@ -10,7 +10,7 @@ namespace Bank.BLL.DI
     {
         public static void AddBusinessLogic(this IServiceCollection iServiceCollection, IConfiguration iConfiguration)
         {
-            iServiceCollection.AddScoped<ICreditCardServices, CreditCardServices>();
+            iServiceCollection.AddScoped<ICreditCardServices, CreditCardService>();
             iServiceCollection.AddDataAccess(iConfiguration);
         }
     }
