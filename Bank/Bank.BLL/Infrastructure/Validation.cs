@@ -15,7 +15,7 @@ namespace Bank.BLL.Infrastructure
         public bool IsCardNumberValid(CreditCard creditCard)
         {
             return creditCard.CardNumber.ToString().Length >= 4
-                   && creditCard.CardNumber.ToString().Length <= 6;
+                   && creditCard.CardNumber.ToString().Length <= 16;
         }
 
         public bool IsCvvValid(CreditCard creditCard)
