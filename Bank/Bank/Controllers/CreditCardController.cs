@@ -15,7 +15,10 @@ namespace Bank.Controllers
         private readonly ICreditCardServices _creditCardServices;
         private readonly IMapper _mapper;
 
-        public CreditCardController(ILogger<CreditCardController> logger, ICreditCardServices creditCardServices, IMapper mapper)
+        public CreditCardController(
+            ILogger<CreditCardController> logger, 
+            ICreditCardServices creditCardServices, 
+            IMapper mapper)
         {
             _mapper = mapper;
             _logger = logger;
@@ -23,9 +26,9 @@ namespace Bank.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<CreditCardViewModel> GetAll()
+        public async Task<IEnumerable<CreditCardViewModel>> GetAll(CancellationToken token)
         {
-            var result = _creditCardServices.GetAll();
+            var result = await _creditCardServices.GetAll(token);
 
             var resultToList = new List<CreditCardViewModel>();
 
@@ -39,27 +42,27 @@ namespace Bank.Controllers
 
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id,CancellationToken token)
         {
-            _creditCardServices.Delete(id);
+            await _creditCardServices.Delete(id,token);
         }
 
         [HttpPut]
-        public CreditCardViewModel Update(CreditCardViewModel creditCardViewModel)
+        public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel,CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
-            var result = _creditCardServices.Update(creditCard);
+            var result = await _creditCardServices.Update(creditCard,token);
 
             return _mapper.Map<CreditCardViewModel>(result);
         }
 
         [HttpPost]
-        public CreditCardViewModel Create(CreditCardViewModel creditCardViewModel)
+        public async Task<CreditCardViewModel> Create(CreditCardViewModel creditCardViewModel, CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
-            var result = _creditCardServices.Create(creditCard);
+            var result = await _creditCardServices.Create(creditCard,token);
 
             return _mapper.Map<CreditCardViewModel>(result);
         }

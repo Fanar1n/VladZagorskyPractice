@@ -4,10 +4,10 @@ namespace Bank.DAL.Interfaces
 {
     public interface ICreditCardRepository
     {
-        IEnumerable<CreditCardEntity> GetAll();
-        CreditCardEntity Get(int id);
-        CreditCardEntity Create(CreditCardEntity item);
-        CreditCardEntity Update(CreditCardEntity item);
-        void Delete(int id);
+        Task<IEnumerable<CreditCardEntity>> GetAll(CancellationToken token);
+        Task<CreditCardEntity> Get(int id, CancellationToken token);
+        Task<CreditCardEntity> Create(CreditCardEntity item, CancellationToken token);
+        Task<CreditCardEntity> Update(CreditCardEntity item, CancellationToken token); 
+        Task Delete(int id, CancellationToken token);
     }
 }

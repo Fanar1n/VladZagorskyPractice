@@ -4,10 +4,10 @@ namespace Bank.BLL.Interfaces
 {
     public interface ICreditCardServices
     {
-        IEnumerable<CreditCard> GetAll();
-        CreditCard Get(int id);
-        CreditCard Create(CreditCard item);
-        CreditCard Update(CreditCard item);
-        void Delete(int id);
+        Task<IEnumerable<CreditCard>> GetAll(CancellationToken token);
+        Task<CreditCard> Get(int id, CancellationToken token);
+        Task<CreditCard> Create(CreditCard item, CancellationToken token);
+        Task<CreditCard> Update(CreditCard item, CancellationToken token);
+        Task Delete(int id, CancellationToken token);
     }
 }

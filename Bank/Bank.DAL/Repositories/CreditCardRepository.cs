@@ -14,41 +14,41 @@ namespace Bank.DAL.Repositories
             _db = applicationContext;
         }
 
-        public IEnumerable<CreditCardEntity> GetAll()
+        public async Task<IEnumerable<CreditCardEntity>> GetAll(CancellationToken token)
         {
-            return _db.CreditCard.AsNoTracking().ToList();
+            return await _db.CreditCard.AsNoTracking().ToListAsync(token);
         }
 
-        public CreditCardEntity Get(int id)
+        public async Task<CreditCardEntity> Get(int id, CancellationToken token)
         {
-            return _db.CreditCard.AsNoTracking().FirstOrDefault(p => p.Id == id);
+            return await _db.CreditCard.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id,token);
         }
 
-        public CreditCardEntity Create(CreditCardEntity creditCard)
+        public async Task<CreditCardEntity> Create(CreditCardEntity creditCard, CancellationToken token)
         {
-            _db.CreditCard.Add(creditCard);
+            _db.CreditCard.AddAsync(creditCard,token);
 
-            _db.SaveChanges();
+            _db.SaveChangesAsync(token);
 
             return creditCard;
         }
 
-        public CreditCardEntity Update(CreditCardEntity creditCard)
+        public async Task<CreditCardEntity> Update(CreditCardEntity creditCard, CancellationToken token)
         {
             _db.CreditCard.Update(creditCard);
 
-            _db.SaveChanges();
+            _db.SaveChangesAsync(token);
 
             return creditCard;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id, CancellationToken token)
         {
             var creditCard = _db.CreditCard.Find(id);
 
             _db.CreditCard.Remove(creditCard);
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync(token);
         }
     }
 }
