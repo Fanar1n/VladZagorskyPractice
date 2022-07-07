@@ -26,9 +26,9 @@ namespace Bank.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CreditCardViewModel>> GetAll()
+        public async Task<IEnumerable<CreditCardViewModel>> GetAll(CancellationToken token)
         {
-            var result = await _creditCardServices.GetAll();
+            var result = await _creditCardServices.GetAll(token);
 
             var resultToList = new List<CreditCardViewModel>();
 
@@ -42,27 +42,27 @@ namespace Bank.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id)
+        public async Task Delete(int id,CancellationToken token)
         {
-            await _creditCardServices.Delete(id);
+            await _creditCardServices.Delete(id,token);
         }
 
         [HttpPut]
-        public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel)
+        public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel,CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
-            var result = await _creditCardServices.Update(creditCard);
+            var result = await _creditCardServices.Update(creditCard,token);
 
             return _mapper.Map<CreditCardViewModel>(result);
         }
 
         [HttpPost]
-        public async Task<CreditCardViewModel> Create(CreditCardViewModel creditCardViewModel)
+        public async Task<CreditCardViewModel> Create(CreditCardViewModel creditCardViewModel, CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
-            var result = await _creditCardServices.Create(creditCard);
+            var result = await _creditCardServices.Create(creditCard,token);
 
             return _mapper.Map<CreditCardViewModel>(result);
         }
