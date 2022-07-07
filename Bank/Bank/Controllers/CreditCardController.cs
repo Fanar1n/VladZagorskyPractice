@@ -16,8 +16,8 @@ namespace Bank.Controllers
         private readonly IMapper _mapper;
 
         public CreditCardController(
-            ILogger<CreditCardController> logger, 
-            ICreditCardServices creditCardServices, 
+            ILogger<CreditCardController> logger,
+            ICreditCardServices creditCardServices,
             IMapper mapper)
         {
             _mapper = mapper;
@@ -42,17 +42,17 @@ namespace Bank.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task Delete(int id,CancellationToken token)
+        public async Task Delete(int id, CancellationToken token)
         {
-            await _creditCardServices.Delete(id,token);
+            await _creditCardServices.Delete(id, token);
         }
 
         [HttpPut]
-        public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel,CancellationToken token)
+        public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel, CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
-            var result = await _creditCardServices.Update(creditCard,token);
+            var result = await _creditCardServices.Update(creditCard, token);
 
             return _mapper.Map<CreditCardViewModel>(result);
         }
@@ -62,7 +62,7 @@ namespace Bank.Controllers
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
 
-            var result = await _creditCardServices.Create(creditCard,token);
+            var result = await _creditCardServices.Create(creditCard, token);
 
             return _mapper.Map<CreditCardViewModel>(result);
         }

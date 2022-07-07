@@ -35,9 +35,9 @@ namespace Bank.BLL.Infrastructure
                    && creditCard.OwnerSecondName.Length <= 30;
         }
 
-        public bool DataValidationId(int id,CancellationToken token)
+        public bool DataValidationId(int id, CancellationToken token)
         {
-            var creditCard = _creditCardRepository.Get(id,token);
+            var creditCard = _creditCardRepository.Get(id, token);
 
             if (creditCard == null)
             {

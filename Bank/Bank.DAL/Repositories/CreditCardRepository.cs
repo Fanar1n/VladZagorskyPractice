@@ -21,12 +21,12 @@ namespace Bank.DAL.Repositories
 
         public async Task<CreditCardEntity> Get(int id, CancellationToken token)
         {
-            return await _db.CreditCard.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id,token);
+            return await _db.CreditCard.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id, token);
         }
 
         public async Task<CreditCardEntity> Create(CreditCardEntity creditCard, CancellationToken token)
         {
-            _db.CreditCard.AddAsync(creditCard,token);
+            _db.CreditCard.AddAsync(creditCard, token);
 
             _db.SaveChangesAsync(token);
 
