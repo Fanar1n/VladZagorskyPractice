@@ -7,7 +7,7 @@ namespace Bank.DAL.Interfaces
         Task<IEnumerable<CreditCardEntity>> GetAll(CancellationToken token);
         Task<CreditCardEntity> Get(int id, CancellationToken token);
         Task<CreditCardEntity> Create(CreditCardEntity item, CancellationToken token);
-        Task<CreditCardEntity> Update(CreditCardEntity item, CancellationToken token); 
+        Task<CreditCardEntity> Update(CreditCardEntity item, CancellationToken token);
         Task Delete(int id, CancellationToken token);
     }
 }

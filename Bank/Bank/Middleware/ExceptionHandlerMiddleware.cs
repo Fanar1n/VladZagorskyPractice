@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Net;
 
 namespace Bank.Middleware
 {
@@ -20,23 +19,17 @@ namespace Bank.Middleware
             }
             catch (Exception ex)
             {
-                await HandleExceptionMessageAsync(context, ex).ConfigureAwait(false);
+                context.Response.ContentType = "application/json";
+                var result = JsonConvert.SerializeObject(new
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    ErrorMessage = ex.Message
+                });
+
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                context.Response.WriteAsync(result);
             }
-        }
-
-        private static Task HandleExceptionMessageAsync(HttpContext context, Exception ex)
-        {
-            context.Response.ContentType = "application/json";
-            int statusCode = (int)HttpStatusCode.InternalServerError;
-            var result = JsonConvert.SerializeObject(new
-            {
-                StatusCode = statusCode,
-                ErrorMessage = ex.Message
-            });
-
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = statusCode;
-            return context.Response.WriteAsync(result);
         }
     }
 }

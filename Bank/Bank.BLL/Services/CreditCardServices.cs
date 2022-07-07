@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using AutoMapper;
+﻿using AutoMapper;
 using Bank.BLL.Infrastructure;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
@@ -38,7 +37,7 @@ namespace Bank.BLL.Services
 
         public async Task<CreditCard> Get(int id, CancellationToken token)
         {
-            var result = await _creditCardRepository.Get(id,token);
+            var result = await _creditCardRepository.Get(id, token);
 
             return _mapper.Map<CreditCard>(result);
         }
@@ -55,14 +54,14 @@ namespace Bank.BLL.Services
 
             var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
 
-            var result = await _creditCardRepository.Create(creditCardEntity,token);
+            var result = await _creditCardRepository.Create(creditCardEntity, token);
 
             return _mapper.Map<CreditCard>(result);
         }
 
         public async Task<CreditCard> Update(CreditCard item, CancellationToken token)
         {
-            if (!_validation.DataValidationId(item.Id,token)
+            if (!_validation.DataValidationId(item.Id, token)
                  || !_validation.IsCardNumberValid(item)
                  || !_validation.IsCvvValid(item)
                  || !_validation.IsOwnerFirstNameValid(item)
@@ -73,19 +72,19 @@ namespace Bank.BLL.Services
 
             var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
 
-            var result = await _creditCardRepository.Update(creditCardEntity,token);
+            var result = await _creditCardRepository.Update(creditCardEntity, token);
 
             return _mapper.Map<CreditCard>(result);
         }
 
         public async Task Delete(int id, CancellationToken token)
         {
-            if (!_validation.DataValidationId(id,token))
+            if (!_validation.DataValidationId(id, token))
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
 
-            await _creditCardRepository.Delete(id,token);
+            await _creditCardRepository.Delete(id, token);
         }
     }
 }
