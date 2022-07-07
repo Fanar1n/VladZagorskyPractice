@@ -8,8 +8,8 @@ namespace Bank.Validator
         public CreditCardValidator()
         {
             RuleFor(x => x.Id).NotNull();
-            RuleFor(x => x.CardNumber.ToString()).Length(1,6);
-            RuleFor(x => x.CVV.ToString()).Length(1,3);
+            RuleFor(x => x.CardNumber.ToString()).Length(4, 16);
+            RuleFor(x => x.CVV.ToString()).Length(3);
             RuleFor(x => x.OwnerFirstName).Length(1,30);
             RuleFor(x => x.OwnerSecondName).Length(1,30);
         }
