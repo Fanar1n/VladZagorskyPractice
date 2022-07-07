@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Runtime.CompilerServices;
+using AutoMapper;
 using Bank.BLL.Infrastructure;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
@@ -21,9 +22,9 @@ namespace Bank.BLL.Services
             _creditCardRepository = creditCardRepository;
             _validation = new Validation(creditCardRepository);
         }
-        public IEnumerable<CreditCard> GetAll()
+        public async Task<IEnumerable<CreditCard>> GetAll()
         {
-            var result = _creditCardRepository.GetAll();
+            var result = await _creditCardRepository.GetAll();
 
             var resultToList = new List<CreditCard>();
 
@@ -35,14 +36,14 @@ namespace Bank.BLL.Services
             return resultToList;
         }
 
-        public CreditCard Get(int id)
+        public async Task<CreditCard> Get(int id)
         {
-            var result = _creditCardRepository.Get(id);
+            var result = await _creditCardRepository.Get(id);
 
             return _mapper.Map<CreditCard>(result);
         }
 
-        public CreditCard Create(CreditCard item)
+        public async Task<CreditCard> Create(CreditCard item)
         {
             if (!_validation.IsCardNumberValid(item)
                 || !_validation.IsCvvValid(item)
@@ -54,12 +55,12 @@ namespace Bank.BLL.Services
 
             var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
 
-            var result = _creditCardRepository.Create(creditCardEntity);
+            var result = await _creditCardRepository.Create(creditCardEntity);
 
             return _mapper.Map<CreditCard>(result);
         }
 
-        public CreditCard Update(CreditCard item)
+        public async Task<CreditCard> Update(CreditCard item)
         {
             if (!_validation.DataValidationId(item.Id)
                  || !_validation.IsCardNumberValid(item)
@@ -72,19 +73,19 @@ namespace Bank.BLL.Services
 
             var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
 
-            var result = _creditCardRepository.Update(creditCardEntity);
+            var result = await _creditCardRepository.Update(creditCardEntity);
 
             return _mapper.Map<CreditCard>(result);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             if (!_validation.DataValidationId(id))
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
 
-            _creditCardRepository.Delete(id);
+            await _creditCardRepository.Delete(id);
         }
     }
 }
