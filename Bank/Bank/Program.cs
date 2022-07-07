@@ -1,3 +1,5 @@
+using System.Reflection;
+using FluentValidation.AspNetCore;
 using Bank.BLL.DI;
 using Bank.Middleware;
 
@@ -7,6 +9,7 @@ var configuration = builder.Configuration;
 
 builder.Services.AddBusinessLogic(configuration);
 builder.Services.AddAutoMapper(typeof(Bank.BLL.AMapper.Mapper), typeof(Bank.Mappers.Mapper));
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.Load("Bank")));
 
 builder.Services.AddControllers();
 

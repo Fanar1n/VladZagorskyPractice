@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Bank.BLL.Infrastructure;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
 using Bank.DAL.Entities;
@@ -10,7 +9,6 @@ namespace Bank.BLL.Services
     public class CreditCardServices : ICreditCardServices
     {
         private readonly ICreditCardRepository _creditCardRepository;
-        private readonly Validation _validation;
         private readonly IMapper _mapper;
 
         public CreditCardServices(
@@ -19,7 +17,6 @@ namespace Bank.BLL.Services
         {
             _mapper = mapper;
             _creditCardRepository = creditCardRepository;
-            _validation = new Validation(creditCardRepository);
         }
         public async Task<IEnumerable<CreditCard>> GetAll(CancellationToken token)
         {
@@ -44,14 +41,6 @@ namespace Bank.BLL.Services
 
         public async Task<CreditCard> Create(CreditCard item, CancellationToken token)
         {
-            if (!_validation.IsCardNumberValid(item)
-                || !_validation.IsCvvValid(item)
-                || !_validation.IsOwnerFirstNameValid(item)
-                || !_validation.IsOwnerSecondNameValid(item))
-            {
-                throw new ArgumentException("Data or Id is not correct");
-            }
-
             var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
 
             var result = await _creditCardRepository.Create(creditCardEntity, token);
@@ -61,11 +50,9 @@ namespace Bank.BLL.Services
 
         public async Task<CreditCard> Update(CreditCard item, CancellationToken token)
         {
-            if (!_validation.DataValidationId(item.Id, token)
-                 || !_validation.IsCardNumberValid(item)
-                 || !_validation.IsCvvValid(item)
-                 || !_validation.IsOwnerFirstNameValid(item)
-                 || !_validation.IsOwnerSecondNameValid(item))
+            var creditCard = await _creditCardRepository.Get(item.Id, token);
+
+            if (creditCard == null)
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
@@ -79,7 +66,9 @@ namespace Bank.BLL.Services
 
         public async Task Delete(int id, CancellationToken token)
         {
-            if (!_validation.DataValidationId(id, token))
+            var creditCard = await _creditCardRepository.Get(id, token);
+
+            if (creditCard == null)
             {
                 throw new ArgumentException("Data or Id is not correct");
             }
