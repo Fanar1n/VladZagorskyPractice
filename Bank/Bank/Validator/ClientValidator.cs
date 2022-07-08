@@ -12,8 +12,8 @@ namespace Bank.Validator
             RuleFor(x => x.FirstName).Length(1, 30);
             RuleFor(x => x.SecondName).Length(1, 30);
             RuleFor(x => x.PhoneNumber)
-                .Must(IsPhoneValid).WithMessage("Номер телефона должен начинаться с +375 и содержать только цифры")
-                .Length(13).WithMessage("Номер телефона должен содержать 13 символов");
+                .Must(IsPhoneValid).WithMessage("The phone number must start with +375 and contain only digits")
+                .Length(13).WithMessage("The phone number must contain 13 characters");
         }
         private bool IsPhoneValid(string phone)
         {
