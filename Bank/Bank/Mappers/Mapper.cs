@@ -9,6 +9,7 @@ namespace Bank.Mappers
         public Mapper()
         {
             CreateMap<CreditCard, CreditCardViewModel>().ReverseMap();
+            CreateMap<Client, ClientViewModel>().ReverseMap();
         }
     }
 }

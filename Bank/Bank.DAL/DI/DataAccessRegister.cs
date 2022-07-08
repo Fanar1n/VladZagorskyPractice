@@ -12,6 +12,7 @@ namespace Bank.DAL.DI
         public static void AddDataAccess(this IServiceCollection iServiceCollection, IConfiguration iConfiguration)
         {
             iServiceCollection.AddScoped<ICreditCardRepository, CreditCardRepository>();
+            iServiceCollection.AddScoped<IClientRepository, ClientRepository>();
             iServiceCollection.AddDbContext<ApplicationContext>(c => c.UseSqlServer(iConfiguration.GetConnectionString("DefaultConnection")));
         }
     }

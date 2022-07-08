@@ -9,6 +9,7 @@ namespace Bank.BLL.AMapper
         public Mapper()
         {
             CreateMap<CreditCard, CreditCardEntity>().ReverseMap();
+            CreateMap<Client, ClientEntity>().ReverseMap();
         }
     }
 }

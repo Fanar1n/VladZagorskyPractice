@@ -1,6 +1,6 @@
-﻿namespace Bank.DAL.Entities
+﻿namespace Bank.Models
 {
-    public class ClientEntity
+    public class ClientViewModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

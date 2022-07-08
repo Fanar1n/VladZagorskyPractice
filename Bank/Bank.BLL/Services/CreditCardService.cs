@@ -6,12 +6,12 @@ using Bank.DAL.Interfaces;
 
 namespace Bank.BLL.Services
 {
-    public class CreditCardServices : ICreditCardServices
+    public class CreditCardService : ICreditCardServices
     {
         private readonly ICreditCardRepository _creditCardRepository;
         private readonly IMapper _mapper;
 
-        public CreditCardServices(
+        public CreditCardService(
             ICreditCardRepository creditCardRepository,
             IMapper mapper)
         {
