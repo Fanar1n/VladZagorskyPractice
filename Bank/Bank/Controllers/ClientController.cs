@@ -10,7 +10,6 @@ namespace Bank.Controllers
     [Route("[controller]")]
     public class ClientController : ControllerBase
     {
-        private readonly ILogger<ClientController> _logger;
         private readonly IClientService _clientService;
         private readonly IMapper _mapper;
 
@@ -20,7 +19,6 @@ namespace Bank.Controllers
             IMapper mapper)
         {
             _mapper = mapper;
-            _logger = logger;
             _clientService = clientService;
         }
 
