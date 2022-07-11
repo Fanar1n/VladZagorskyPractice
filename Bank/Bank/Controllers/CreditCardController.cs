@@ -1,3 +1,4 @@
+using System.Collections;
 using AutoMapper;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
@@ -11,17 +12,14 @@ namespace Bank.Controllers
     [Route("[controller]")]
     public class CreditCardController : ControllerBase
     {
-        private readonly ILogger<CreditCardController> _logger;
         private readonly ICreditCardServices _creditCardServices;
         private readonly IMapper _mapper;
 
         public CreditCardController(
-            ILogger<CreditCardController> logger,
             ICreditCardServices creditCardServices,
             IMapper mapper)
         {
             _mapper = mapper;
-            _logger = logger;
             _creditCardServices = creditCardServices;
         }
 
@@ -30,14 +28,7 @@ namespace Bank.Controllers
         {
             var result = await _creditCardServices.GetAll(token);
 
-            var resultToList = new List<CreditCardViewModel>();
-
-            foreach (var item in result)
-            {
-                resultToList.Add(_mapper.Map<CreditCardViewModel>(item));
-            }
-
-            return resultToList;
+            return _mapper.Map<IEnumerable<CreditCardViewModel>>(result);
         }
 
 
