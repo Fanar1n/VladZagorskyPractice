@@ -30,12 +30,10 @@ namespace Bank.API.Tests.ContollerTests
             _creditCardMoqService.Setup(x => x.Create(validCreditCardModel, default))
                 .ReturnsAsync(validCreditCardModel);
 
-            //Action
             var controller = new CreditCardController(_creditCardMoqService.Object, _mapper.Object);
 
             var result = await controller.Create(validCreditCardViewModel, default);
 
-            // Assert
             validCreditCardViewModel.CardNumber.ShouldBeEquivalentTo(result.CardNumber);
         }
 
