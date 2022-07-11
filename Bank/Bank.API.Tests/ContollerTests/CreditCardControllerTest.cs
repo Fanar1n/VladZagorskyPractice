@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Bank.API.Tests.Models;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
@@ -35,6 +35,8 @@ namespace Bank.API.Tests.ContollerTests
             var result = await controller.Create(validCreditCardViewModel, default);
 
             validCreditCardViewModel.ShouldBeEquivalentTo(result);
+
+            validCreditCardViewModel.CardNumber.ShouldBeEquivalentTo(result.CardNumber);
         }
 
         [Fact]
@@ -65,6 +67,8 @@ namespace Bank.API.Tests.ContollerTests
             var validCreditCardViewModel = ValidCreditCardViewModel.CreditCardViewModel;
 
             _mapper.Setup(x => x.Map<CreditCard>(validCreditCardViewModel));
+
+            _mapper.Setup(x => x.Map<IEnumerable<CreditCard>>(validCreditCardViewModel));
 
             _creditCardMoqService.Setup(x => x.Delete(validCreditCardViewModel.Id, default));
 
