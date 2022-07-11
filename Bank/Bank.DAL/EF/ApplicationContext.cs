@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using Bank.DAL.Entities;
+﻿using Bank.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bank.DAL.EF

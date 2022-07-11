@@ -22,14 +22,7 @@ namespace Bank.BLL.Services
         {
             var result = await _clientRepository.GetAll(token);
 
-            var resultToList = new List<Client>();
-
-            foreach (var item in result)
-            {
-                resultToList.Add(_mapper.Map<Client>(item));
-            }
-
-            return resultToList;
+            return _mapper.Map<IEnumerable<Client>>(result);
         }
 
         public async Task<Client> Get(int id, CancellationToken token)
@@ -42,7 +35,6 @@ namespace Bank.BLL.Services
         public async Task<Client> Create(Client item, CancellationToken token)
         {
             var clientEntity = _mapper.Map<ClientEntity>(item);
-
             var result = await _clientRepository.Create(clientEntity, token);
 
             return _mapper.Map<Client>(result);
@@ -58,7 +50,6 @@ namespace Bank.BLL.Services
             }
 
             var clientEntity = _mapper.Map<ClientEntity>(item);
-
             var result = await _clientRepository.Update(clientEntity, token);
 
             return _mapper.Map<Client>(result);

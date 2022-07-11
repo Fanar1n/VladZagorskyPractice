@@ -8,7 +8,7 @@ namespace Bank.Middleware
         private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
         public ExceptionHandlerMiddleware(
-            RequestDelegate next, 
+            RequestDelegate next,
             ILogger<ExceptionHandlerMiddleware> logger)
         {
             _next = next;
