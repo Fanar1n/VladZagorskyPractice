@@ -22,14 +22,7 @@ namespace Bank.BLL.Services
         {
             var result = await _creditCardRepository.GetAll(token);
 
-            var resultToList = new List<CreditCard>();
-
-            foreach (var item in result)
-            {
-                resultToList.Add(_mapper.Map<CreditCard>(item));
-            }
-
-            return resultToList;
+            return _mapper.Map<IEnumerable<CreditCard>>(result);
         }
 
         public async Task<CreditCard> Get(int id, CancellationToken token)

@@ -34,7 +34,7 @@ namespace Bank.API.Tests.ContollerTests
 
             var result = await controller.Create(validCreditCardViewModel, default);
 
-            validCreditCardViewModel.CardNumber.ShouldBeEquivalentTo(result.CardNumber);
+            validCreditCardViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace Bank.API.Tests.ContollerTests
         {
             var validCreditCardViewModel = ValidCreditCardViewModel.CreditCardViewModel;
 
-            _mapper.Setup(x => x.Map<IEnumerable<CreditCard>>(validCreditCardViewModel));
+            _mapper.Setup(x => x.Map<CreditCard>(validCreditCardViewModel));
 
             _creditCardMoqService.Setup(x => x.Delete(validCreditCardViewModel.Id, default));
 
