@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using AutoMapper;
+﻿using AutoMapper;
 using Bank.API.Tests.Models;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
@@ -8,8 +7,6 @@ using Bank.Models;
 using Moq;
 using Shouldly;
 using Xunit;
-
-
 
 namespace Bank.API.Tests.ContollerTests
 {
@@ -40,7 +37,6 @@ namespace Bank.API.Tests.ContollerTests
 
             // Assert
             validCreditCardViewModel.CardNumber.ShouldBeEquivalentTo(result.CardNumber);
-
         }
 
         [Fact]
@@ -58,12 +54,9 @@ namespace Bank.API.Tests.ContollerTests
             _creditCardMoqService.Setup(x => x.Update(validCreditCardModel, default))
                 .ReturnsAsync(validCreditCardModel);
 
-
-
             var controller = new CreditCardController(_creditCardMoqService.Object, _mapper.Object);
 
             var result = await controller.Update(validCreditCardViewModel, default);
-
 
             validCreditCardViewModel.ShouldBeEquivalentTo(result);
         }
@@ -75,7 +68,7 @@ namespace Bank.API.Tests.ContollerTests
 
             _mapper.Setup(x => x.Map<IEnumerable<CreditCard>>(validCreditCardViewModel));
 
-            _creditCardMoqService.Setup(x => x.Delete(validCreditCardViewModel.Id,default));
+            _creditCardMoqService.Setup(x => x.Delete(validCreditCardViewModel.Id, default));
 
             var controller = new CreditCardController(_creditCardMoqService.Object, _mapper.Object);
 
@@ -104,4 +97,3 @@ namespace Bank.API.Tests.ContollerTests
         }
     }
 }
-
