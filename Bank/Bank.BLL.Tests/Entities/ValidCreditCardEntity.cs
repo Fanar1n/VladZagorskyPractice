@@ -10,6 +10,6 @@ namespace Bank.BLL.Tests.Entity
         };
 
         public static CreditCardEntity CreditCardEntity = new()
-        {Id = 1, CardNumber = 77777, CVV = 777, OwnerFirstName = "Maksim", OwnerSecondName = "Shamigov" };
+        { Id = 1, CardNumber = 77777, CVV = 777, OwnerFirstName = "Maksim", OwnerSecondName = "Shamigov" };
     }
 }

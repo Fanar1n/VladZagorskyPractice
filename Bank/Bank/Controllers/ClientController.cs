@@ -14,7 +14,6 @@ namespace Bank.Controllers
         private readonly IMapper _mapper;
 
         public ClientController(
-            ILogger<ClientController> logger,
             IClientService clientService,
             IMapper mapper)
         {
@@ -26,15 +25,8 @@ namespace Bank.Controllers
         public async Task<IEnumerable<ClientViewModel>> GetAll(CancellationToken token)
         {
             var result = await _clientService.GetAll(token);
-
-            var resultToList = new List<ClientViewModel>();
-
-            foreach (var item in result)
-            {
-                resultToList.Add(_mapper.Map<ClientViewModel>(item));
-            }
-
-            return resultToList;
+            
+            return _mapper.Map<IEnumerable<ClientViewModel>>(result);
         }
 
 
@@ -48,7 +40,6 @@ namespace Bank.Controllers
         public async Task<ClientViewModel> Update(ClientViewModel clientViewModel, CancellationToken token)
         {
             var client = _mapper.Map<Client>(clientViewModel);
-
             var result = await _clientService.Update(client, token);
 
             return _mapper.Map<ClientViewModel>(result);
@@ -58,7 +49,6 @@ namespace Bank.Controllers
         public async Task<ClientViewModel> Create(ClientViewModel clientViewModel, CancellationToken token)
         {
             var client = _mapper.Map<Client>(clientViewModel);
-
             var result = await _clientService.Create(client, token);
 
             return _mapper.Map<ClientViewModel>(result);

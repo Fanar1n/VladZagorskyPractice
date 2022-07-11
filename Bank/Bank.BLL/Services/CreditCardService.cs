@@ -35,7 +35,6 @@ namespace Bank.BLL.Services
         public async Task<CreditCard> Create(CreditCard item, CancellationToken token)
         {
             var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
-
             var result = await _creditCardRepository.Create(creditCardEntity, token);
 
             return _mapper.Map<CreditCard>(result);
@@ -51,7 +50,6 @@ namespace Bank.BLL.Services
             }
 
             var creditCardEntity = _mapper.Map<CreditCardEntity>(item);
-
             var result = await _creditCardRepository.Update(creditCardEntity, token);
 
             return _mapper.Map<CreditCard>(result);

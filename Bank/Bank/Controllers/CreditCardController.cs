@@ -1,10 +1,8 @@
-using System.Collections;
 using AutoMapper;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
 using Bank.Models;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace Bank.Controllers
 {
@@ -31,7 +29,6 @@ namespace Bank.Controllers
             return _mapper.Map<IEnumerable<CreditCardViewModel>>(result);
         }
 
-
         [HttpDelete("{id}")]
         public async Task Delete(int id, CancellationToken token)
         {
@@ -42,7 +39,6 @@ namespace Bank.Controllers
         public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel, CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
-
             var result = await _creditCardServices.Update(creditCard, token);
 
             return _mapper.Map<CreditCardViewModel>(result);
@@ -52,7 +48,6 @@ namespace Bank.Controllers
         public async Task<CreditCardViewModel> Create(CreditCardViewModel creditCardViewModel, CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
-
             var result = await _creditCardServices.Create(creditCard, token);
 
             return _mapper.Map<CreditCardViewModel>(result);

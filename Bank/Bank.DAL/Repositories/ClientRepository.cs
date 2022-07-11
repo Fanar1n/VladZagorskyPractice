@@ -26,18 +26,18 @@ namespace Bank.DAL.Repositories
 
         public async Task<ClientEntity> Create(ClientEntity client, CancellationToken token)
         {
-            _db.Client.AddAsync(client, token);
+            await _db.Client.AddAsync(client, token);
 
-            _db.SaveChangesAsync(token);
+            await _db.SaveChangesAsync(token);
 
             return client;
         }
-        
+
         public async Task<ClientEntity> Update(ClientEntity client, CancellationToken token)
         {
             _db.Client.Update(client);
 
-            _db.SaveChangesAsync(token);
+            await _db.SaveChangesAsync(token);
 
             return client;
         }

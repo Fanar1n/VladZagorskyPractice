@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Bank.Models;
+﻿using Bank.Models;
 using FluentValidation;
 
 namespace Bank.Validator
