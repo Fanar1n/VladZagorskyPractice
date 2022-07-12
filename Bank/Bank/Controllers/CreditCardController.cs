@@ -35,7 +35,7 @@ namespace Bank.Controllers
             await _creditCardServices.Delete(id, token);
         }
 
-        [HttpPut(template: "{id}")]
+        [HttpPut]
         public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel, CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
