@@ -2,12 +2,7 @@
 
 namespace Bank.DAL.Interfaces
 {
-    public interface ICreditCardRepository
+    public interface ICreditCardRepository : IGenericRepository<CreditCardEntity>
     {
-        Task<IEnumerable<CreditCardEntity>> GetAll(CancellationToken token);
-        Task<CreditCardEntity> Get(int id, CancellationToken token);
-        Task<CreditCardEntity> Create(CreditCardEntity item, CancellationToken token);
-        Task<CreditCardEntity> Update(CreditCardEntity item, CancellationToken token);
-        Task Delete(int id, CancellationToken token);
     }
 }
