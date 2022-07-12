@@ -27,7 +27,7 @@ namespace Bank.DAL.Repositories
 
         public async Task<TEntity> Create(TEntity tEntity, CancellationToken token)
         {
-            _dbSet.AddAsync(tEntity, token);
+            await _dbSet.AddAsync(tEntity, token);
 
             await _db.SaveChangesAsync(token);
 
@@ -45,7 +45,7 @@ namespace Bank.DAL.Repositories
 
         public async Task Delete(int id, CancellationToken token)
         {
-            var tEntity = _dbSet.Find(id);
+            var tEntity =await _dbSet.FindAsync(id);
 
             _dbSet.Remove(tEntity);
 
