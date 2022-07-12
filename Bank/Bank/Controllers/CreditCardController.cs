@@ -28,7 +28,7 @@ namespace Bank.Controllers
 
             return _mapper.Map<IEnumerable<CreditCardViewModel>>(result);
         }
-
+        
         [HttpDelete("{id}")]
         public async Task Delete(int id, CancellationToken token)
         {

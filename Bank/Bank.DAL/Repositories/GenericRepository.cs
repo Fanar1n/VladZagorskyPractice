@@ -1,5 +1,4 @@
 ﻿using Bank.DAL.EF;
-using Bank.DAL.Entities;
 using Bank.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,23 +22,23 @@ namespace Bank.DAL.Repositories
 
         public async Task<TEntity> Get(int id, CancellationToken token)
         {
-            return await _dbSet.FindAsync(new object[] {id},token);
+            return await _dbSet.FindAsync(new object[] { id }, token);
         }
 
-        public async Task<TEntity> Create(TEntity tEntity , CancellationToken token)
+        public async Task<TEntity> Create(TEntity tEntity, CancellationToken token)
         {
             _dbSet.AddAsync(tEntity, token);
 
-            _db.SaveChangesAsync(token);
+            await _db.SaveChangesAsync(token);
 
             return tEntity;
         }
 
-        public async Task<TEntity> Update(TEntity tEntity , CancellationToken token)
+        public async Task<TEntity> Update(TEntity tEntity, CancellationToken token)
         {
-            _dbSet.Update(tEntity);
+            _db.Entry(tEntity).State = EntityState.Modified;
 
-            _db.SaveChangesAsync(token);
+            await _db.SaveChangesAsync(token);
 
             return tEntity;
         }
