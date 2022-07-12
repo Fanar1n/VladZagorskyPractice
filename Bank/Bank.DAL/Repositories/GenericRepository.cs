@@ -20,7 +20,7 @@ namespace Bank.DAL.Repositories
             return await _dbSet.AsNoTracking().ToListAsync(token);
         }
 
-        public async Task<TEntity> Get(int id, CancellationToken token)
+        public virtual async Task<TEntity> Get(int id, CancellationToken token)
         {
             return await _dbSet.FindAsync(new object[] { id }, token);
         }

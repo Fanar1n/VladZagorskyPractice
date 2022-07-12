@@ -28,14 +28,14 @@ namespace Bank.Controllers
 
             return _mapper.Map<IEnumerable<CreditCardViewModel>>(result);
         }
-        
+
         [HttpDelete("{id}")]
         public async Task Delete(int id, CancellationToken token)
         {
             await _creditCardServices.Delete(id, token);
         }
 
-        [HttpPut]
+        [HttpPut(template: "{id}")]
         public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel, CancellationToken token)
         {
             var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
