@@ -25,7 +25,7 @@ namespace Bank.Controllers
         public async Task<IEnumerable<ClientViewModel>> GetAll(CancellationToken token)
         {
             var result = await _clientService.GetAll(token);
-            
+
             return _mapper.Map<IEnumerable<ClientViewModel>>(result);
         }
 
