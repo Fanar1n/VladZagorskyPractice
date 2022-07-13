@@ -36,7 +36,6 @@ namespace Bank.DAL.Repositories
 
         public async Task<TEntity> Update(TEntity tEntity, CancellationToken token)
         {
-            _db.Entry(tEntity).State = EntityState.Modified;
 
             await _db.SaveChangesAsync(token);
 
@@ -45,7 +44,6 @@ namespace Bank.DAL.Repositories
 
         public async Task Delete(int id, CancellationToken token)
         {
-            var tEntity =await _dbSet.FindAsync(id);
 
             _dbSet.Remove(tEntity);
 
