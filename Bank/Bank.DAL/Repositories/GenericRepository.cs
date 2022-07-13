@@ -44,6 +44,7 @@ namespace Bank.DAL.Repositories
 
         public async Task Delete(int id, CancellationToken token)
         {
+            var tEntity = await _dbSet.FindAsync(new object[] { id }, token);
 
             _dbSet.Remove(tEntity);
 
