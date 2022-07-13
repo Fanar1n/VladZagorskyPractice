@@ -1,8 +1,7 @@
-﻿namespace Bank.Models
+﻿namespace Bank.Models.CreditCard
 {
-    public class CreditCardViewModel
+    public class AddCreditCardViewModel
     {
-        public int Id { get; set; }
         public int CardNumber { get; set; }
         public int CVV { get; set; }
         public string OwnerFirstName { get; set; }

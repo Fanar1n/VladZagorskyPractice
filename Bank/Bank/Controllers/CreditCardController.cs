@@ -1,7 +1,7 @@
 using AutoMapper;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
-using Bank.Models;
+using Bank.Models.CreditCard;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Controllers
@@ -45,12 +45,12 @@ namespace Bank.Controllers
         }
 
         [HttpPost]
-        public async Task<CreditCardViewModel> Create(CreditCardViewModel creditCardViewModel, CancellationToken token)
+        public async Task<ShortCreditCardViewModel> Create(AddCreditCardViewModel addCreditCardViewModel, CancellationToken token)
         {
-            var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
+            var creditCard = _mapper.Map<CreditCard>(addCreditCardViewModel);
             var result = await _creditCardServices.Create(creditCard, token);
 
-            return _mapper.Map<CreditCardViewModel>(result);
+            return _mapper.Map<ShortCreditCardViewModel>(result);
         }
     }
 }

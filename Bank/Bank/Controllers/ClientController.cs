@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
-using Bank.Models;
+using Bank.Models.Client;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Controllers
@@ -46,12 +46,12 @@ namespace Bank.Controllers
         }
 
         [HttpPost]
-        public async Task<ClientViewModel> Create(ClientViewModel clientViewModel, CancellationToken token)
+        public async Task<ShortClientViewModel> Create(AddClientViewModel addClientViewModel, CancellationToken token)
         {
-            var client = _mapper.Map<Client>(clientViewModel);
+            var client = _mapper.Map<Client>(addClientViewModel);
             var result = await _clientService.Create(client, token);
 
-            return _mapper.Map<ClientViewModel>(result);
+            return _mapper.Map<ShortClientViewModel>(result);
         }
     }
 }
