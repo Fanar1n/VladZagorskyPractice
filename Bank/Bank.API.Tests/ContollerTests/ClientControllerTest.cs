@@ -4,7 +4,7 @@ using Bank.API.Tests.ViewModels;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
 using Bank.Controllers;
-using Bank.Models;
+using Bank.Models.Client;
 using Moq;
 using Shouldly;
 using Xunit;
@@ -20,21 +20,21 @@ namespace Bank.API.Tests.ContollerTests
         public async Task Add_ValidClient_ReturnValidClient()
         {
             //Arrange.
-            var validClientViewModel = ValidClientViewModel.ClientViewModel;
+            var addValidClientViewModel = ValidClientViewModel.AddClientViewModel;
             var validClientModel = ValidClient.ClientModel;
 
-            _mapper.Setup(x => x.Map<Client>(validClientViewModel))
+            _mapper.Setup(x => x.Map<Client>(addValidClientViewModel))
                 .Returns(validClientModel);
-            _mapper.Setup(x => x.Map<ClientViewModel>(validClientModel))
-                .Returns(validClientViewModel);
+            _mapper.Setup(x => x.Map<AddClientViewModel>(validClientModel))
+                .Returns(addValidClientViewModel);
             _clientMoqService.Setup(x => x.Create(validClientModel, default))
                 .ReturnsAsync(validClientModel);
             //Act.
             var controller = new ClientController(_clientMoqService.Object, _mapper.Object);
             //Assert.
-            var result = await controller.Create(validClientViewModel, default);
+            var result = await controller.Create(addValidClientViewModel, default);
 
-            validClientViewModel.ShouldBeEquivalentTo(result);
+            addValidClientViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]
