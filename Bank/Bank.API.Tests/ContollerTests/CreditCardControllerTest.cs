@@ -3,6 +3,7 @@ using Bank.API.Tests.Models;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
 using Bank.Controllers;
+using Bank.Models.CreditCard;
 using Moq;
 using Shouldly;
 using Xunit;
