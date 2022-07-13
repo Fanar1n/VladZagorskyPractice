@@ -19,7 +19,7 @@ namespace Bank.API.Tests.Models
 
         public static AddCreditCardViewModel AddCreditCardViewModel = new()
         {
-            CardNumber = 66666666,
+            CardNumber = 6666,
             CVV = 666,
             OwnerFirstName = "Dimon",
             OwnerSecondName = "Dimoooon"
@@ -27,7 +27,7 @@ namespace Bank.API.Tests.Models
 
         public static ShortCreditCardViewModel ShortCreditCardViewModel = new()
         {
-            CardNumber = 66666666,
+            CardNumber = 6666,
             CVV = 666,
             OwnerFirstName = "Dimon",
             OwnerSecondName = "Dimoooon"

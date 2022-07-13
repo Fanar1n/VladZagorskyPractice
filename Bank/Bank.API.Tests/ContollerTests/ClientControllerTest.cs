@@ -22,11 +22,12 @@ namespace Bank.API.Tests.ContollerTests
             //Arrange.
             var addValidClientViewModel = ValidClientViewModel.AddClientViewModel;
             var validClientModel = ValidClient.ClientModel;
+            var shortValidClientViewModel = ValidClientViewModel.ShortClientViewModel;
 
             _mapper.Setup(x => x.Map<Client>(addValidClientViewModel))
                 .Returns(validClientModel);
-            _mapper.Setup(x => x.Map<AddClientViewModel>(validClientModel))
-                .Returns(addValidClientViewModel);
+            _mapper.Setup(x => x.Map<ShortClientViewModel>(validClientModel))
+                .Returns(shortValidClientViewModel);
             _clientMoqService.Setup(x => x.Create(validClientModel, default))
                 .ReturnsAsync(validClientModel);
             //Act.
@@ -34,7 +35,7 @@ namespace Bank.API.Tests.ContollerTests
             //Assert.
             var result = await controller.Create(addValidClientViewModel, default);
 
-            addValidClientViewModel.ShouldBeEquivalentTo(result);
+            shortValidClientViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]

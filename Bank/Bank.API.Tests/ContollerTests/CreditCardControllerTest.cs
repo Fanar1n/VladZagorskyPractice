@@ -21,11 +21,12 @@ namespace Bank.API.Tests.ContollerTests
             //Arrange.
             var addValidCreditCardViewModel = ValidCreditCardViewModel.AddCreditCardViewModel;
             var validCreditCardModel = ValidCreditCard.CreditCardModel;
+            var shortValidCreditCardViewModel = ValidCreditCardViewModel.ShortCreditCardViewModel;
 
             _mapper.Setup(x => x.Map<CreditCard>(addValidCreditCardViewModel))
                 .Returns(validCreditCardModel);
-            _mapper.Setup(x => x.Map<AddCreditCardViewModel>(validCreditCardModel))
-                .Returns(addValidCreditCardViewModel);
+            _mapper.Setup(x => x.Map<ShortCreditCardViewModel>(validCreditCardModel))
+                .Returns(shortValidCreditCardViewModel);
             _creditCardMoqService.Setup(x => x.Create(validCreditCardModel, default))
                 .ReturnsAsync(validCreditCardModel);
             //Act.
@@ -33,7 +34,7 @@ namespace Bank.API.Tests.ContollerTests
             //Assert.
             var result = await controller.Create(addValidCreditCardViewModel, default);
 
-            addValidCreditCardViewModel.ShouldBeEquivalentTo(result);
+            shortValidCreditCardViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]
