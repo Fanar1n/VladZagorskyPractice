@@ -2,12 +2,7 @@
 
 namespace Bank.BLL.Interfaces
 {
-    public interface IClientService
+    public interface IClientService : IGenericService<Client>
     {
-        Task<IEnumerable<Client>> GetAll(CancellationToken token);
-        Task<Client> Get(int id, CancellationToken token);
-        Task<Client> Create(Client item, CancellationToken token);
-        Task<Client> Update(Client item, CancellationToken token);
-        Task Delete(int id, CancellationToken token);
     }
 }
