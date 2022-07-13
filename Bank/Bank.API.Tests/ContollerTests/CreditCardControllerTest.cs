@@ -3,6 +3,7 @@ using Bank.API.Tests.Models;
 using Bank.BLL.Interfaces;
 using Bank.BLL.Models;
 using Bank.Controllers;
+using Bank.Models.CreditCard;
 using Moq;
 using Shouldly;
 using Xunit;
@@ -18,21 +19,21 @@ namespace Bank.API.Tests.ContollerTests
         public async Task Add_ValidCreditCard_ReturnValidCreditCard()
         {
             //Arrange.
-            var validCreditCardViewModel = ValidCreditCardViewModel.CreditCardViewModel;
+            var addValidCreditCardViewModel = ValidCreditCardViewModel.AddCreditCardViewModel;
             var validCreditCardModel = ValidCreditCard.CreditCardModel;
 
-            _mapper.Setup(x => x.Map<CreditCard>(validCreditCardViewModel))
+            _mapper.Setup(x => x.Map<CreditCard>(addValidCreditCardViewModel))
                 .Returns(validCreditCardModel);
-            _mapper.Setup(x => x.Map<CreditCardViewModel>(validCreditCardModel))
-                .Returns(validCreditCardViewModel);
+            _mapper.Setup(x => x.Map<AddCreditCardViewModel>(validCreditCardModel))
+                .Returns(addValidCreditCardViewModel);
             _creditCardMoqService.Setup(x => x.Create(validCreditCardModel, default))
                 .ReturnsAsync(validCreditCardModel);
             //Act.
             var controller = new CreditCardController(_creditCardMoqService.Object, _mapper.Object);
             //Assert.
-            var result = await controller.Create(validCreditCardViewModel, default);
+            var result = await controller.Create(addValidCreditCardViewModel, default);
 
-            validCreditCardViewModel.ShouldBeEquivalentTo(result);
+            addValidCreditCardViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]
