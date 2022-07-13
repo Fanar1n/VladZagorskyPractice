@@ -8,7 +8,7 @@ namespace Bank.BLL.Services
 {
     public class CreditCardService : GenericService<CreditCard, CreditCardEntity>, ICreditCardServices
     {
-        public CreditCardService(IGenericRepository<CreditCardEntity> genericRepository, IMapper mapper,ICreditCardRepository creditCardRepository) : base(genericRepository, mapper)
+        public CreditCardService(IGenericRepository<CreditCardEntity> genericRepository, IMapper mapper) : base(genericRepository, mapper)
         {
         }
     }
