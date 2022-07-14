@@ -11,5 +11,15 @@ namespace Bank.BLL.Services
         public CreditCardService(IGenericRepository<CreditCardEntity> genericRepository, IMapper mapper) : base(genericRepository, mapper)
         {
         }
+
+        public override async Task<CreditCard> Create(CreditCard creditCard, CancellationToken token)
+        {
+            var tEntity = _mapper.Map<CreditCardEntity>(creditCard);
+            var result = await _genericRepository.Create(tEntity, token);
+
+            var creditCardWithClient = _genericRepository.Get(result.Id, token);
+
+            return _mapper.Map<CreditCard>(creditCardWithClient);
+        }
     }
 }
