@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public int CardNumber { get; set; }
         public int CVV { get; set; }
-        public ClientEntity ClientEntity { get; set; }
+        public ClientEntity Client { get; set; }
     }
 }

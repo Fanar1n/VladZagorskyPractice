@@ -31,23 +31,23 @@ namespace Bank.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CardNumber = table.Column<int>(type: "int", nullable: false),
                     CVV = table.Column<int>(type: "int", nullable: false),
-                    ClientEntityId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CreditCard", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CreditCard_Client_ClientEntityId",
-                        column: x => x.ClientEntityId,
+                        name: "FK_CreditCard_Client_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CreditCard_ClientEntityId",
+                name: "IX_CreditCard_ClientId",
                 table: "CreditCard",
-                column: "ClientEntityId");
+                column: "ClientId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

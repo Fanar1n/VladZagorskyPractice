@@ -60,30 +60,25 @@ namespace Bank.DAL.Migrations
                     b.Property<int>("CardNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientEntityId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientEntityId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("CreditCard");
                 });
 
             modelBuilder.Entity("Bank.DAL.Entities.CreditCardEntity", b =>
                 {
-                    b.HasOne("Bank.DAL.Entities.ClientEntity", "ClientEntity")
-                        .WithMany("CreditCardEntity")
-                        .HasForeignKey("ClientEntityId")
+                    b.HasOne("Bank.DAL.Entities.ClientEntity", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ClientEntity");
-                });
-
-            modelBuilder.Entity("Bank.DAL.Entities.ClientEntity", b =>
-                {
-                    b.Navigation("CreditCardEntity");
+                    b.Navigation("Client");
                 });
 #pragma warning restore 612, 618
         }

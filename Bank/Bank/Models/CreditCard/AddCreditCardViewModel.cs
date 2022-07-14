@@ -6,6 +6,6 @@ namespace Bank.Models.CreditCard
     {
         public int CardNumber { get; set; }
         public int CVV { get; set; }
-        public ClientViewModel ClientViewModel { get; set; }
+        public int ClientId { get; set; }
     }
 }
