@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bank.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220708081952_Init")]
-    partial class Init
+    [Migration("20220714131710_NewDatabase")]
+    partial class NewDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,17 +62,30 @@ namespace Bank.DAL.Migrations
                     b.Property<int>("CardNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("OwnerFirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerSecondName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ClientEntityId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientEntityId");
+
                     b.ToTable("CreditCard");
+                });
+
+            modelBuilder.Entity("Bank.DAL.Entities.CreditCardEntity", b =>
+                {
+                    b.HasOne("Bank.DAL.Entities.ClientEntity", "ClientEntity")
+                        .WithMany("CreditCardEntity")
+                        .HasForeignKey("ClientEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClientEntity");
+                });
+
+            modelBuilder.Entity("Bank.DAL.Entities.ClientEntity", b =>
+                {
+                    b.Navigation("CreditCardEntity");
                 });
 #pragma warning restore 612, 618
         }

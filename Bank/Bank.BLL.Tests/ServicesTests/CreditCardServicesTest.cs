@@ -93,7 +93,7 @@ namespace Bank.BLL.Tests.ServicesTests
             var service = new CreditCardService(_creditCardMoqRepository.Object, _mapper.Object);
             //Assert.
             var result = await service.Get(validCreditCard.Id, default);
-            
+
             validCreditCard.ShouldBeEquivalentTo(result);
         }
 

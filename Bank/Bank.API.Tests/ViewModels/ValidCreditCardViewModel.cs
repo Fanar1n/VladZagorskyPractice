@@ -9,11 +9,11 @@ namespace Bank.API.Tests.Models
             new() { Id = 1, CardNumber = 4444, CVV = 444, OwnerFirstName = "Vlad" , OwnerSecondName = "Zagorsky"}
         };
 
-        public static CreditCardViewModel CreditCardViewModel = new() 
-        { 
-            CardNumber = 4444, 
-            CVV = 444, 
-            OwnerFirstName = "Vlad", 
+        public static CreditCardViewModel CreditCardViewModel = new()
+        {
+            CardNumber = 4444,
+            CVV = 444,
+            OwnerFirstName = "Vlad",
             OwnerSecondName = "Zagorsky"
         };
 
