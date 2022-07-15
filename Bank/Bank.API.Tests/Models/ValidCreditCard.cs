@@ -6,9 +6,9 @@ namespace Bank.API.Tests.Models
     {
         public static IEnumerable<CreditCard> InitListCreditCards = new List<CreditCard>
         {
-            new() { Id = 1, CardNumber = 4444, CVV = 444, OwnerFirstName = "Vlad" , OwnerSecondName = "Zagorsky"}
+            new() { Id = 1, CardNumber = 4444, CVV = 444, ClientId = 1}
         };
 
-        public static CreditCard CreditCardModel = new() { CardNumber = 4444, CVV = 444, OwnerFirstName = "Vlad", OwnerSecondName = "Zagorsky" };
+        public static CreditCard CreditCardModel = new() { CardNumber = 4444, CVV = 444, ClientId = 1 };
     }
 }

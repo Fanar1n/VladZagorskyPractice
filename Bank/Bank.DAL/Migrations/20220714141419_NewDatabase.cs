@@ -4,7 +4,7 @@
 
 namespace Bank.DAL.Migrations
 {
-    public partial class Init : Migration
+    public partial class NewDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,22 +31,32 @@ namespace Bank.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CardNumber = table.Column<int>(type: "int", nullable: false),
                     CVV = table.Column<int>(type: "int", nullable: false),
-                    OwnerFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OwnerSecondName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ClientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CreditCard", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CreditCard_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CreditCard_ClientId",
+                table: "CreditCard",
+                column: "ClientId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Client");
+                name: "CreditCard");
 
             migrationBuilder.DropTable(
-                name: "CreditCard");
+                name: "Client");
         }
     }
 }

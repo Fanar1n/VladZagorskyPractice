@@ -3,6 +3,7 @@ using Bank.DAL.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bank.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220715072402_UpdateCreditCard")]
+    partial class UpdateCreditCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,12 +62,12 @@ namespace Bank.DAL.Migrations
                     b.Property<int>("CardNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientId")
+                    b.Property<int>("ClientEntityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("ClientEntityId");
 
                     b.ToTable("CreditCard");
                 });
@@ -74,7 +76,7 @@ namespace Bank.DAL.Migrations
                 {
                     b.HasOne("Bank.DAL.Entities.ClientEntity", "Client")
                         .WithMany()
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("ClientEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

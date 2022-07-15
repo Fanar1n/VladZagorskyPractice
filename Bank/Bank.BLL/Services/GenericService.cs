@@ -4,10 +4,10 @@ using Bank.DAL.Interfaces;
 
 namespace Bank.BLL.Services
 {
-    public class GenericService<TModel,TEntity> : IGenericService<TModel> where TModel : class where TEntity : class
+    public class GenericService<TModel, TEntity> : IGenericService<TModel> where TModel : class where TEntity : class
     {
         private readonly IGenericRepository<TEntity> _genericRepository;
-        private readonly IMapper _mapper;
+        protected readonly IMapper _mapper;
 
         public GenericService(
             IGenericRepository<TEntity> genericRepository,
@@ -17,7 +17,7 @@ namespace Bank.BLL.Services
             _genericRepository = genericRepository;
         }
 
-        public async Task<IEnumerable<TModel>> GetAll(CancellationToken token)
+        public virtual async Task<IEnumerable<TModel>> GetAll(CancellationToken token)
         {
             var result = await _genericRepository.GetAll(token);
 
@@ -31,7 +31,7 @@ namespace Bank.BLL.Services
             return _mapper.Map<TModel>(result);
         }
 
-        public async Task<TModel> Create(TModel item, CancellationToken token)
+        public virtual async Task<TModel> Create(TModel item, CancellationToken token)
         {
             var tEntity = _mapper.Map<TEntity>(item);
             var result = await _genericRepository.Create(tEntity, token);

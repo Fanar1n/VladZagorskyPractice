@@ -1,4 +1,6 @@
-﻿namespace Bank.Models.Client
+﻿using Bank.Models.CreditCard;
+
+namespace Bank.Models.Client
 {
     public class ClientViewModel
     {

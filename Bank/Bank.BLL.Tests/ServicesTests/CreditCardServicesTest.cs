@@ -29,8 +29,10 @@ namespace Bank.BLL.Tests.ServicesTests
                 .Returns(validCreditCardEntity);
             _creditCardMoqRepository.Setup(x => x.Create(validCreditCardEntity, default))
                 .ReturnsAsync(validCreditCardEntity);
+            _creditCardMoqRepository.Setup(x => x.Get(validCreditCardEntity.Id, default))
+                .ReturnsAsync(validCreditCardEntity);
             //Act.
-            var service = new CreditCardService(_creditCardMoqRepository.Object, _mapper.Object);
+            var service = new CreditCardService(_mapper.Object, _creditCardMoqRepository.Object);
             //Assert.
             var result = await service.Create(validCreditCard, default);
 
@@ -53,7 +55,7 @@ namespace Bank.BLL.Tests.ServicesTests
             _creditCardMoqRepository.Setup(x => x.Get(validCreditCard.Id, default))
                 .ReturnsAsync(validCreditCardEntity);
             //Act.
-            var service = new CreditCardService(_creditCardMoqRepository.Object, _mapper.Object);
+            var service = new CreditCardService(_mapper.Object, _creditCardMoqRepository.Object);
             //Assert.
             var result = await service.Update(validCreditCard, default);
 
@@ -69,7 +71,7 @@ namespace Bank.BLL.Tests.ServicesTests
             _mapper.Setup(x => x.Map<CreditCardEntity>(validCreditCard));
             _creditCardMoqRepository.Setup(x => x.Delete(validCreditCard.Id, default));
             //Act.
-            var service = new CreditCardService(_creditCardMoqRepository.Object, _mapper.Object);
+            var service = new CreditCardService(_mapper.Object, _creditCardMoqRepository.Object);
             //Assert.
             Action action = async () => await service.Delete(validCreditCard.Id, default);
 
@@ -90,10 +92,10 @@ namespace Bank.BLL.Tests.ServicesTests
             _creditCardMoqRepository.Setup(x => x.Get(validCreditCardEntity.Id, default))
                 .ReturnsAsync(validCreditCardEntity);
             //Act.
-            var service = new CreditCardService(_creditCardMoqRepository.Object, _mapper.Object);
+            var service = new CreditCardService(_mapper.Object, _creditCardMoqRepository.Object);
             //Assert.
             var result = await service.Get(validCreditCard.Id, default);
-            
+
             validCreditCard.ShouldBeEquivalentTo(result);
         }
 
@@ -109,7 +111,7 @@ namespace Bank.BLL.Tests.ServicesTests
             _creditCardMoqRepository.Setup(x => x.GetAll(default))
                 .ReturnsAsync(validCreditCardEntity);
             //Act.
-            var service = new CreditCardService(_creditCardMoqRepository.Object, _mapper.Object);
+            var service = new CreditCardService(_mapper.Object, _creditCardMoqRepository.Object);
             //Assert.
             var result = await service.GetAll(default);
 

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bank.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220708081952_Init")]
-    partial class Init
+    [Migration("20220715072719_RenameColumn")]
+    partial class RenameColumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,17 +62,25 @@ namespace Bank.DAL.Migrations
                     b.Property<int>("CardNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("OwnerFirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerSecondName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.ToTable("CreditCard");
+                });
+
+            modelBuilder.Entity("Bank.DAL.Entities.CreditCardEntity", b =>
+                {
+                    b.HasOne("Bank.DAL.Entities.ClientEntity", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
                 });
 #pragma warning restore 612, 618
         }
