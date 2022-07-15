@@ -6,7 +6,7 @@ namespace Bank.BLL.Services
 {
     public class GenericService<TModel, TEntity> : IGenericService<TModel> where TModel : class where TEntity : class
     {
-        protected readonly IGenericRepository<TEntity> _genericRepository;
+        private readonly IGenericRepository<TEntity> _genericRepository;
         protected readonly IMapper _mapper;
 
         public GenericService(
@@ -17,7 +17,7 @@ namespace Bank.BLL.Services
             _genericRepository = genericRepository;
         }
 
-        public async Task<IEnumerable<TModel>> GetAll(CancellationToken token)
+        public virtual async Task<IEnumerable<TModel>> GetAll(CancellationToken token)
         {
             var result = await _genericRepository.GetAll(token);
 

@@ -15,7 +15,7 @@ namespace Bank.DAL.Repositories
             _dbSet = _db.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll(CancellationToken token)
+        public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken token)
         {
             return await _dbSet.AsNoTracking().ToListAsync(token);
         }

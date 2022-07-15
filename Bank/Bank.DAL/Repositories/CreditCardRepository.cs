@@ -11,9 +11,18 @@ namespace Bank.DAL.Repositories
         {
         }
 
+        public override async Task<IEnumerable<CreditCardEntity>> GetAll(CancellationToken token)
+        {
+            var result = await _dbSet.AsNoTracking().Include(x => x.Client).ToListAsync(token);
+
+            return result;
+        }
+
         public override async Task<CreditCardEntity> Get(int id, CancellationToken token)
         {
-            return await _dbSet.AsNoTracking().Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _dbSet.AsNoTracking().Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
         }
     }
 }
