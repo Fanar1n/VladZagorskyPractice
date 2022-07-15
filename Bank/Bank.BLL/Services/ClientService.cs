@@ -8,7 +8,7 @@ namespace Bank.BLL.Services
 {
     public class ClientService : GenericService<Client, ClientEntity>, IClientService
     {
-        public ClientService(IGenericRepository<ClientEntity> genericRepository, IMapper mapper) : base(genericRepository, mapper)
+        public ClientService(IClientRepository clientRepository, IMapper mapper) : base(clientRepository, mapper)
         {
         }
     }
