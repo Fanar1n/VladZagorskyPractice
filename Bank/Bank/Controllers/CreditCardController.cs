@@ -36,12 +36,12 @@ namespace Bank.Controllers
         }
 
         [HttpPut]
-        public async Task<CreditCardViewModel> Update(CreditCardViewModel creditCardViewModel, CancellationToken token)
+        public async Task<ShortCreditCardViewModel> Update(ShortCreditCardViewModel shortCreditCardViewModel, CancellationToken token)
         {
-            var creditCard = _mapper.Map<CreditCard>(creditCardViewModel);
+            var creditCard = _mapper.Map<CreditCard>(shortCreditCardViewModel);
             var result = await _creditCardServices.Update(creditCard, token);
 
-            return _mapper.Map<CreditCardViewModel>(result);
+            return _mapper.Map<ShortCreditCardViewModel>(result);
         }
 
         [HttpPost]

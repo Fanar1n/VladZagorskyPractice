@@ -37,12 +37,12 @@ namespace Bank.Controllers
         }
 
         [HttpPut]
-        public async Task<ClientViewModel> Update(ClientViewModel clientViewModel, CancellationToken token)
+        public async Task<ShortClientViewModel> Update(AddClientViewModel addClientViewModel, CancellationToken token)
         {
-            var client = _mapper.Map<Client>(clientViewModel);
+            var client = _mapper.Map<Client>(addClientViewModel);
             var result = await _clientService.Update(client, token);
 
-            return _mapper.Map<ClientViewModel>(result);
+            return _mapper.Map<ShortClientViewModel>(result);
         }
 
         [HttpPost]
