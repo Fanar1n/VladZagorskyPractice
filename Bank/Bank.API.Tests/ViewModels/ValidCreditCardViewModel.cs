@@ -35,7 +35,6 @@ namespace Bank.API.Tests.Models
 
         public static UpdateCreditCardViewModel UpdateCreditCardViewModel = new()
         {
-            Id = 1,
             CardNumber = 6666,
             CVV = 666,
             ClientId = 1
