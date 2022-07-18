@@ -54,7 +54,7 @@ namespace Bank.API.Tests.ContollerTests
             //Act.
             var controller = new CreditCardController(_creditCardMoqService.Object, _mapper.Object);
             //Assert.
-            var result = await controller.Update(updateValidCreditCardViewModel, default);
+            var result = await controller.Update(updateValidCreditCardViewModel, validCreditCardModel.Id, default);
 
             shortValidCreditCardViewModel.ShouldBeEquivalentTo(result);
         }
