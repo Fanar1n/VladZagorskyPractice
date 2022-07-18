@@ -41,21 +41,22 @@ namespace Bank.API.Tests.ContollerTests
         public async Task Update_ValidCreditCard_ReturnUpdateCreditCard()
         {
             //Arrange.
+            var updateValidCreditCardViewModel = ValidCreditCardViewModel.UpdateCreditCardViewModel;
             var validCreditCardModel = ValidCreditCard.CreditCardModel;
-            var validCreditCardViewModel = ValidCreditCardViewModel.CreditCardViewModel;
+            var shortValidCreditCardViewModel = ValidCreditCardViewModel.ShortCreditCardViewModel;
 
-            _mapper.Setup(x => x.Map<CreditCard>(validCreditCardViewModel))
+            _mapper.Setup(x => x.Map<CreditCard>(updateValidCreditCardViewModel))
                 .Returns(validCreditCardModel);
-            _mapper.Setup(x => x.Map<CreditCardViewModel>(validCreditCardModel))
-                .Returns(validCreditCardViewModel);
+            _mapper.Setup(x => x.Map<ShortCreditCardViewModel>(validCreditCardModel))
+                .Returns(shortValidCreditCardViewModel);
             _creditCardMoqService.Setup(x => x.Update(validCreditCardModel, default))
                 .ReturnsAsync(validCreditCardModel);
             //Act.
             var controller = new CreditCardController(_creditCardMoqService.Object, _mapper.Object);
             //Assert.
-            var result = await controller.Update(validCreditCardViewModel, default);
+            var result = await controller.Update(updateValidCreditCardViewModel, default);
 
-            validCreditCardViewModel.ShouldBeEquivalentTo(result);
+            shortValidCreditCardViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]
