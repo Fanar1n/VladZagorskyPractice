@@ -23,15 +23,5 @@ namespace Bank.BLL.Services
 
             return _mapper.Map<CreditCard>(creditCardWithClient);
         }
-
-        public override async Task<CreditCard> Update(CreditCard item, CancellationToken token)
-        {
-            var entity = _mapper.Map<CreditCardEntity>(item);
-            var result = await _creditCardRepository.Update(entity, token);
-
-            var creditCardWithClient = await _creditCardRepository.Get(result.Id, token);
-
-            return _mapper.Map<CreditCard>(creditCardWithClient);
-        }
     }
 }
