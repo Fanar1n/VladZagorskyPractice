@@ -32,5 +32,12 @@ namespace Bank.API.Tests.Models
             CVV = 666,
             Client = new() { FirstName = "Vlad", SecondName = "Zagorsky", PhoneNumber = "+375293710904" }
         };
+
+        public static UpdateCreditCardViewModel UpdateCreditCardViewModel = new()
+        {
+            CardNumber = 6666,
+            CVV = 666,
+            ClientId = 1
+        };
     }
 }
