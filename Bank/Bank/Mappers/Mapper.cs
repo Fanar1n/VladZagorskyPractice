@@ -11,10 +11,11 @@ namespace Bank.Mappers
         {
             CreateMap<CreditCard, CreditCardViewModel>().ReverseMap();
             CreateMap<Client, ClientViewModel>().ReverseMap();
-            CreateMap<CreditCard,AddCreditCardViewModel>().ReverseMap();
+            CreateMap<CreditCard, AddCreditCardViewModel>().ReverseMap();
             CreateMap<CreditCard, ShortCreditCardViewModel>().ReverseMap();
-            CreateMap<Client,ShortClientViewModel>().ReverseMap();
-            CreateMap<Client,AddClientViewModel>().ReverseMap();
+            CreateMap<CreditCard, UpdateCreditCardViewModel>().ReverseMap();
+            CreateMap<Client, ShortClientViewModel>().ReverseMap();
+            CreateMap<Client, AddClientViewModel>().ReverseMap();
         }
     }
 }
