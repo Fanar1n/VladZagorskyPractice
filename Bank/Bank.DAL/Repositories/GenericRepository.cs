@@ -36,6 +36,7 @@ namespace Bank.DAL.Repositories
 
         public async Task<TEntity> Update(TEntity tEntity, CancellationToken token)
         {
+            _dbSet.Update(tEntity);
 
             await _db.SaveChangesAsync(token);
 
